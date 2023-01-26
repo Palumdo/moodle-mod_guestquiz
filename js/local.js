@@ -114,18 +114,14 @@ function getQuestions(quiz) {
                     questions[i].answers[j] = {};
                     // Global feedback is supposed to be at the end of the block the last #### win
                     questions[i].feedback = globalFeedback(temp[j].split('####')); 
-                    // Feedback
                     let split = temp[j].split('#');
                     let text = split[0];
-                    questions[i].answers[j].feedback = getFeedback(split);
-                    // Prefix.
-                    questions[i].answers[j].prefix = "=";
-                    // Value.
-                    questions[i].answers[j].value = getValue(text.match(/\%(.*?)\%/));
-                    // Answer text.
-                    questions[i].answers[j].text = text.trim().replace(/%.*%/, '');
+                    questions[i].answers[j].feedback = getFeedback(split); // Feedback.
+                    questions[i].answers[j].prefix = "="; // Prefix.
+                    questions[i].answers[j].value = getValue(text.match(/\%(.*?)\%/)); // Value.
+                    questions[i].answers[j].text = text.trim().replace(/%.*%/, ''); // Answer text.
                     if (questions[i].answers[j].text.charAt(0) == '=') {
-                      questions[i].answers[j].text = questions[i].answers[j].text.slice(1);
+                        questions[i].answers[j].text = questions[i].answers[j].text.slice(1);
                     }
                 }
                 break;
@@ -168,17 +164,14 @@ function getQuestions(quiz) {
                 questions[i].answers = [];
                 for (let j=0;j<temp.length;j++) {
                     questions[i].answers[j] = {};
-                    // Global feedback is supposed to be at the end of the block the last #### win
+                    // Global feedback is supposed to be at the end of the block the last #### win.
                     questions[i].feedback = globalFeedback(temp[j].split('####')); 
-                    // Prefix.
-                    let prefix = temp[j].charAt(0);
+                    let prefix = temp[j].charAt(0); // Prefix.
                     questions[i].answers[j].prefix = prefix;
-                    // Feedback
                     temp[j] = temp[j].slice(1); // Remove the prefix.
                     let split = temp[j].split('#');
-                    // Answer text.
-                    questions[i].answers[j].text = split[0].trim();
-                    questions[i].answers[j].feedback = getFeedback(split);
+                    questions[i].answers[j].text = split[0].trim(); // Answer text.
+                    questions[i].answers[j].feedback = getFeedback(split); // Feedback.
                     // Value.
                     questions[i].answers[j].value = 0;
                     if(prefix == '=') {
@@ -188,15 +181,15 @@ function getQuestions(quiz) {
                 break;
             case 'SHORT_ANSWER':
                 questions[i].answers = [];
-                for (let j=0;j<temp.length;j++) {
-                  questions[i].answers[j] = {};
-                  questions[i].feedback = globalFeedback(temp[j].split('####')); 
-                  temp[j] = temp[j].slice(1); // Remove prefix.
-                  let split = temp[j].split('#');
-                  questions[i].answers[j].text = split[0].trim().replace(/%.*%/, '');
-                  questions[i].answers[j].feedback = getFeedback(split);
-                  questions[i].answers[j].prefix = "=";
-                  questions[i].answers[j].value = 1;            
+                for (let j = 0; j < temp.length; j++) {
+                    questions[i].answers[j] = {};
+                    questions[i].feedback = globalFeedback(temp[j].split('####'));
+                    temp[j] = temp[j].slice(1); // Remove prefix.
+                    let split = temp[j].split('#');
+                    questions[i].answers[j].text = split[0].trim().replace(/%.*%/, ''); // Text.
+                    questions[i].answers[j].feedback = getFeedback(split); // Feedback.
+                    questions[i].answers[j].prefix = "=";
+                    questions[i].answers[j].value = 1;
                 }
                 break;
             case 'MULTIPLE_CHOICE_MULT':
@@ -209,8 +202,8 @@ function getQuestions(quiz) {
                     temp[j] = temp[j].slice(1); // Remove prefix.
                     let split = temp[j].split('#');
                     let text = split[0];
-                    questions[i].answers[j].feedback = getFeedback(split);
-                    let percent = text.match(/\%(.*?)\%/);
+                    questions[i].answers[j].feedback = getFeedback(split);  // Feedback.
+                    let percent = text.match(/\%(.*?)\%/); // Get the % before it was removed.
                     questions[i].answers[j].text = text.trim().replace(/%.*%/, ''); // Percent before because it's remove.
                     questions[i].answers[j].value = 0;
                     if(percent !== null) {
@@ -240,20 +233,23 @@ function getQuestions(quiz) {
     try {
         var questions = getQuestions(quiz);
         let quizOut = "";
-        for (let i=0; i<questions.length; i++) {
+        for (let i = 0; i < questions.length; i++) {
             let obj = questions[i];
             let id = i+1;
+            quizOut += '<div class="guestquiz_question">';
+            quizOut += '<div class="guestquiz_question_title" id="q' + i + '"><b>Question ' + id + '</b>('+obj.title+')</div>' 
+            if (obj.type != 'SHORT_ANSWER') {
+              quizOut += '<div class="guestquiz_question_text">' + obj.question + '</div>';
+            }  
             switch (obj.type) {
                 case 'NUMERIC':
-                    quizOut += '<div id="q' + i + '"><b>Question ' + id + '</b> : ' + obj.question + '</div>';
                     quizOut += '<div id="a' + i + '">';
                     quizOut += '    <div class="form-outline">' +
-                               '        <input type="number" id="typeNumber'+id+'" style="max-width:100px;" class="form-control"/>' +
+                               '        <input type="number" id="typeNumber'+id+'" class="form-control guestquiz_numeric"/>' +
                                '    </div>';
                     quizOut += '</div>';
                     break;
                 case 'BOOLEAN':
-                    quizOut += '<div id="q' + i + '"><b>Question ' + id + '</b> : ' + obj.question + '</div>';
                     quizOut += '<div id="a' + i + '">' +
                                '<div class="form-check">' +
                                '   <input class="form-check-input" type="radio" name="bool'+id+'Radio" id="bool'+id+'Radio_true" value="true">' +
@@ -266,36 +262,32 @@ function getQuestions(quiz) {
                                '</div>';
                     break;
                 case 'MATCHING':
-                    quizOut += '<div id="q' + i + '"><b>Question ' + id + '</b> : ' + obj.question + '</div>';
                     quizOut += '<div id="a' + i + '">The question type matching is not supported</div>';
                     break;
-              case 'MULTIPLE_CHOICE':
-                  let value = "";
-                  quizOut += '<div id="q' + i + '"><b>Question ' + id + '</b> : ' + obj.question + '</div>';
-                  quizOut += '<div id="a' + i + '">';
-                  for (let j=0; j < obj.answers.length; j++) {
-                      quizOut += '<div class="form-check">' +
-                                 '    <input class="form-check-input" type="radio" name="multi'+id+'Radio" id="multi'+id+'Radio_'+j+'" value="'+j+'">' +
-                                 '    <label class="form-check-label" for="multi'+id+'Radio_'+j+'">'+obj.answers[j].text+'</label>' +
-                                 '</div>';
-                  }
-                  quizOut += '</div>';
-                  break;
-              case 'SHORT_ANSWER':
-                  let q = obj.str;
-                  let t = q.match(new RegExp("::" + "(.*?)" + "::"));
-                  if (t !== null) {
-                    q = q.replace(t[0], '');
-                  }
-                  let shortInput = '<input type="text" class="form-control" style="max-width:25%;margin:0 5px 0 5px" id="short'+id+'">';
-                  q = q.replace(/\{.*?[^\)]\}/g, shortInput);
-                  quizOut += '<div class="input-group" id="q' + i + '"><b>Question ' + id + '</b> : ' + q + '</div>';
-                  break;
+                case 'MULTIPLE_CHOICE':
+                    let value = "";
+                    quizOut += '<div id="a' + i + '">';
+                    for (let j=0; j < obj.answers.length; j++) {
+                        quizOut += '<div class="form-check">' +
+                                   '    <input class="form-check-input" type="radio" name="multi'+id+'Radio" id="multi'+id+'Radio_'+j+'" value="'+j+'">' +
+                                   '    <label class="form-check-label" for="multi'+id+'Radio_'+j+'">'+obj.answers[j].text+'</label>' +
+                                   '</div>';
+                    }
+                    quizOut += '</div>';
+                    break;
+                case 'SHORT_ANSWER':
+                    let q = obj.str;
+                    let t = q.match(new RegExp("::" + "(.*?)" + "::"));
+                    if (t !== null) {
+                        q = q.replace(t[0], '');
+                    }
+                    let shortInput = '<input type="text" class="form-control" style="max-width:25%;margin:0 5px 0 5px" id="short'+id+'">';
+                    q = q.replace(/\{.*?[^\)]\}/g, shortInput);
+                    quizOut += '<div class="input-group" id="qsa' + i + '">' + q + '</div>';
+                    break;
               case 'MULTIPLE_CHOICE_MULT':
-                  quizOut += '<div id="q' + i + '"><b>Question ' + id + '</b> : ' + obj.question + '</div>';
                   quizOut += '<div id="a' + i + '">';
                   for (let j=0; j < obj.answers.length; j++) {
-                    // value j => obj.answers[j].text
                     quizOut += '<div class="form-check">' +
                                '    <input class="form-check-input" type="checkbox" name="multi'+id+'checkbox_'+j+'" id="multi'+id+'checkbox_'+j+'" value="'+j+'">' +
                                '    <label class="form-check-label" for="multi'+id+'checkbox_'+j+'">'+obj.answers[j].text+'</label>' +
@@ -304,19 +296,20 @@ function getQuestions(quiz) {
                   quizOut += '</div>';
                   break;
             case 'TEXT':
-                quizOut += '<div id="q' + i + '"><b>Question ' + id + '</b> : ' + obj.question + '</div>';
                 quizOut += '<div id="a' + i + '">The question type text is not supported</div>';
                 break;
             case 'UNKNOWN':
                 break;
         }
-        quizOut += '<div id="feedback_'+id+'" style="font-weight:bold;width:100%;border:1px solid black;border-radius:5px;height1.25em;padding:5px;margin:5px;background:#000"></div>';
+        quizOut += '</div>';
+        quizOut += '<div class="guestquiz_feedback" id="feedback_'+id+'"></div>';
       }
       $('#guestquiz_gift').empty();
       quizOut += '<button class="btn btn-primary" type="button" onclick="validate()">Validate</button>';
       $(quizOut).appendTo($('#guestquiz_gift'));
     } catch(error) {
-      $("#ucl_guest_quiz_message").html('<span style="color:red">There is a format problem</span>');
+      console.log(error);
+      $("#ucl_guest_quiz_message").html('<span class="guestquiz_error">There is a format problem</span>');
     }
   }
  
@@ -326,6 +319,7 @@ function validate() {
     var nbquestion = 0;
     var point = 0;
     var fb = '';
+    $('.guestquiz_feedback').css('padding', '5px');
     for (let i = 0;i < questions.length; i++) {
         let obj = questions[i];
         let id = i + 1;

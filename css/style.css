@@ -1,5 +1,73 @@
-.path-mod-guestquiz table {
-    font-size: 14px;
+.path-mod-guestquiz #guestquiz_score {
+    font-size: 2em;
+    font-weigh: bold;
+    padding: 5px;
+    margin: 5px;
+    border: 2px solid black;
+    border-radius: 5px;
+    max-width: 200px;
+    text-align: center;
+    display: none;
+}
+
+.path-mod-guestquiz .guestquiz_question {
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px 5px 15px 5px;
+    border-radius: 5px;
+    background-color: #f1f7ff;
+    width: max-content;
+    min-width: 50%;
+}
+
+.path-mod-guestquiz .guestquiz_question:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+}
+
+.path-mod-guestquiz .guestquiz_feedback {
+    font-weight: bold;
+    border-radius:5px;
+    margin: 5px 5px 15px 5px;
+    border: 1px solid black;
+    background: #000;
+    max-width: 50%;
+    height: max-content;
+}
+
+.path-mod-guestquiz .guestquiz_question_title {
+    border-bottom: 1px solid black;
+    font-size: 1.25em;
+    margin-bottom:10px;
+}
+
+.path-mod-guestquiz .guestquiz_question_text {
+    font-size: 1.15em;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.path-mod-guestquiz .form-check-label {
+  font-size: 1.10em;
+}
+
+.path-mod-guestquiz .guestquiz_numeric {
+    max-width: 100px;
+}
+
+
+.path-mod-guestquiz input[type='radio']{
+    transform: scale(1.25);
+    margin-bottom: 15px;
+}
+
+.path-mod-guestquiz input[type='checkbox']{
+    transform: scale(1.25);
+    margin-bottom: 15px;
+}
+
+.path-mod-guestquiz .guestquiz_error {
+  color: red;
+  font-weight: bold;
 }
 
 /***************************************************************/
@@ -10,7 +78,3 @@
 /***************************************************************/
 /***************************************************************/
 /***************************************************************/
-
-/*********************/
-/* Boostrap like CSS */
-/*********************/

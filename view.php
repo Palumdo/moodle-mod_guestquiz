@@ -37,8 +37,6 @@ $theme = $CFG->theme;
 // Course_module ID, or.
 $id = optional_param('id', 0, PARAM_INT);
 // Module instance id.
-// Default tab is the Result -> global view.
-
 if ($id) {
     $cm = get_coursemodule_from_id('guestquiz', $id, 0, false, MUST_EXIST);
     $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
@@ -58,7 +56,7 @@ $PAGE->set_context($modulecontext);
 echo $OUTPUT->header();
 // Display GIFT in HTML.
 echo("<div id='ucl_guest_quiz_message'></div>");
-echo("<div id='guestquiz_score' style='font-size:2em;font-weigh:bold;padding:5px;margin:5px;border:2px solid black;border-radius:5px;max-width:200px;text-align:center;display:none;'></div>");
+echo("<div id='guestquiz_score'></div>");
 echo("<div id='guestquiz_gift'></div>");
 echo("<script>");
 echo("    var gQuiz = '';");
