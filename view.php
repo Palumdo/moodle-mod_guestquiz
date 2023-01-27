@@ -55,10 +55,11 @@ $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($modulecontext);
 
 
-$txt = get_strings(array('guestquizwrong','guestquizright','guestquiznotsupported','guestquizwaswrong','guestquizwasright','guestquizbadformat','guestquiztrue','guestquizfalse','guestquizvalidate','guestquizgift'), 'mod_guestquiz');
+$txt = get_strings(array('guestquizwrong', 'guestquizright', 'guestquiznotsupported', 'guestquizwaswrong', 'guestquizwasright', 
+                         'guestquizbadformat', 'guestquiztrue', 'guestquizfalse', 'guestquizvalidate', 'guestquizgift'), 'mod_guestquiz');
 $lngjs = '';
 $atxt = get_object_vars ( $txt );
-foreach($atxt as $idx => $val) {
+foreach ($atxt as $idx => $val) {
     $lngjs .= "allString['{$idx}'] = '{$val}';";
 }
 
@@ -71,8 +72,8 @@ echo("<script>");
 echo("    var gQuiz = '';");
 echo("    var allString = [];");
 echo("    ".$lngjs);
-echo("    $( document ).ready(function() {");
-echo("        gQuiz = `".str_replace('\\', '☻☻☻',$guestquiz->gift)."`;");
+echo("    $(document).ready(function() {");
+echo("        gQuiz = `".str_replace("\\", "☻☻☻", $guestquiz->gift)."`;");
 echo("        var questions = display(gQuiz);");
 echo("    });");
 echo("</script>");

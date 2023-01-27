@@ -305,7 +305,7 @@ function getQuestions(quiz) {
         quizOut += '<div class="guestquiz_feedback" id="feedback_'+id+'"></div>';
       }
       $('#guestquiz_gift').empty();
-      quizOut += '<button class="btn btn-primary" type="button" onclick="validate()">'+allString['guestquizvalidate']+'</button>';
+      quizOut += '<div class="guestquiz_validate"><button class="btn btn-primary" type="button" onclick="validate()">'+allString['guestquizvalidate']+'</button></div>';
       $(quizOut).appendTo($('#guestquiz_gift'));
     } catch(error) {
       console.log(error);
@@ -458,7 +458,8 @@ function validate() {
         }
     }
     $('#guestquiz_score').html('Score:'+score.toFixed(2)+"/"+nbquestion);
-    $('#guestquiz_score').css('display', '');
+    $('#guestquiz_score').css('display', 'block');
+    $("#page").scrollTop(0);
   }
 
 function unescapeCmdChar(quiz) {
