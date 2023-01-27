@@ -66,7 +66,8 @@ class mod_guestquiz_mod_form extends moodleform_mod {
         } else {
             $this->add_intro_editor();
         }
-        $mform->addElement('textarea', 'gift', 'GIFT', 'wrap="virtual" rows="25" cols="80"');
+        $mform->addElement('textarea', 'gift', get_string('guestquizgift', 'mod_guestquiz'), 'wrap="virtual" rows="25" cols="80"');
+        $mform->addHelpButton('gift', 'guestquizgift', 'mod_guestquiz');
 
         $mform->addElement('html', "<div class='documentation'>The GIFT format was a subset of GIFT and do not support
          all the gift possibility of Moodle<br>It's a limited subset. Supported questions type are numeric,

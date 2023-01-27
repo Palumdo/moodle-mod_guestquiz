@@ -262,7 +262,7 @@ function getQuestions(quiz) {
                                '</div>';
                     break;
                 case 'MATCHING':
-                    quizOut += '<div id="a' + i + '">The question type matching is not supported</div>';
+                    quizOut += '<div class="guestquiz_warning" id="a' + i + '">' + allString['guestquiznotsupported'] + '</div>';
                     break;
                 case 'MULTIPLE_CHOICE':
                     let value = "";
@@ -281,7 +281,7 @@ function getQuestions(quiz) {
                     if (t !== null) {
                         q = q.replace(t[0], '');
                     }
-                    let shortInput = '<input type="text" class="form-control" style="max-width:25%;margin:0 5px 0 5px" id="short'+id+'">';
+                    let shortInput = '<input type="text" class="form-control guestquiz_shortinput" id="short'+id+'">';
                     q = q.replace(/\{.*?[^\)]\}/g, shortInput);
                     quizOut += '<div class="input-group" id="qsa' + i + '">' + q + '</div>';
                     break;
@@ -296,7 +296,7 @@ function getQuestions(quiz) {
                   quizOut += '</div>';
                   break;
             case 'TEXT':
-                quizOut += '<div id="a' + i + '">The question type text is not supported</div>';
+                quizOut += '<div class="guestquiz_warning" id="a' + i + '">' + allString['guestquiznotsupported'] + '</div>';
                 break;
             case 'UNKNOWN':
                 break;
@@ -305,11 +305,11 @@ function getQuestions(quiz) {
         quizOut += '<div class="guestquiz_feedback" id="feedback_'+id+'"></div>';
       }
       $('#guestquiz_gift').empty();
-      quizOut += '<button class="btn btn-primary" type="button" onclick="validate()">Validate</button>';
+      quizOut += '<button class="btn btn-primary" type="button" onclick="validate()">'+allString['guestquizvalidate']+'</button>';
       $(quizOut).appendTo($('#guestquiz_gift'));
     } catch(error) {
       console.log(error);
-      $("#ucl_guest_quiz_message").html('<span class="guestquiz_error">There is a format problem</span>');
+      $("#ucl_guest_quiz_message").html('<span class="guestquiz_error">'+allString['guestquizbadformat']+'</span>');
     }
   }
 
@@ -345,17 +345,17 @@ function validate() {
                         }
                     }
                 } else { // No answer.
-                    dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                    dspFeedback(id, false, allString['guestquizwrong'], obj.feedback);
                 }
                 // Check that the answer was a good one.
                 if (point > 0) {
                     score += point;
                     if (fb == '') {
-                      fb = 'Good answer';
+                      fb = allString['guestquizright'];
                     }
                     dspFeedback(id, true, fb, obj.feedback);
                 } else {
-                    dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                    dspFeedback(id, false, allString['guestquizwrong'], obj.feedback);
                 }
                 break;
             case 'BOOLEAN':
@@ -363,14 +363,14 @@ function validate() {
                 name = 'bool'+id+'Radio';
                 ret = $('input[name="'+name+'"]:checked').val();
                 if ( (ret == 'true' && obj.answers[0].prefix == '=') || (ret == 'false' && obj.answers[1].prefix == '=')) {
-                    dspFeedback(id, true, 'Good answer', obj.feedback);
+                    dspFeedback(id, true, allString['guestquizright'], obj.feedback);
                     score += 1;
                 } else {
-                    dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                    dspFeedback(id, false, allString['guestquizwrong'], obj.feedback);
                 }
                 break;
             case 'MATCHING':
-                dspFeedback(id, false, 'Question type not supported', obj.feedback);
+                dspFeedback(id, false, allString['guestquiznotsupported'], obj.feedback);
                 break;
             case 'MULTIPLE_CHOICE':
                 nbquestion++;
@@ -382,7 +382,7 @@ function validate() {
                             if(obj.answers[i].feedback != '') {
                                 dspFeedback(id, true, obj.answers[i].feedback, obj.feedback);
                             } else {
-                                dspFeedback(id, true, 'Good answer', obj.feedback);
+                                dspFeedback(id, true, allString['guestquizright'], obj.feedback);
                             }
                             score += 1;
                             i = obj.answers.length;
@@ -391,13 +391,13 @@ function validate() {
                             if(obj.answers[i].feedback != '') {
                                 dspFeedback(id, false, obj.answers[i].feedback, obj.feedback);
                             } else {
-                                dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                                dspFeedback(id, false, allString['guestquizwrong'], obj.feedback);
                             }
                             i = obj.answers.length;
                         }
                     }
                 } else {
-                    dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                    dspFeedback(id, false, allString['guestquizwrong'], obj.feedback);
                 }
                 break;
             case 'SHORT_ANSWER':
@@ -410,14 +410,14 @@ function validate() {
                       if (obj.answers[i].feedback != '') {
                           dspFeedback(id, true, obj.answers[i].feedback, obj.feedback);
                       } else {
-                          dspFeedback(id, true, 'Good answer', obj.feedback);
+                          dspFeedback(id, true, allString['guestquizright'], obj.feedback);
                       }
                       point = obj.answers[i].value;
                       score += obj.answers[i].value;
                     }
                 }
                 if (point == 0) {
-                    dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                    dspFeedback(id, false, allString['guestquizwrong'], obj.feedback);
                 }
                 break;
             case 'MULTIPLE_CHOICE_MULT':
@@ -429,16 +429,16 @@ function validate() {
                     if ($('#'+name+i).is(":checked")) {
                         if (obj.answers[i].feedback != "")  {
                             if (obj.answers[i].value > 0) {
-                                fb += "<span style='color:#49A049'>";
+                                fb += "<span class='guestquiz_right'>";
                             } else {
-                                fb += "<span style='color:#ff0000'>";
+                                fb += "<span class='guestquiz_wrong'>";
                             }
                             fb += obj.answers[i].text + " " + obj.answers[i].feedback + '</span><br>';
                         } else {
                             if (obj.answers[i].value > 0) {
-                                fb += "<span style='color:#49A049'>" + obj.answers[i].text + " was a good answer.</span><br>";
+                                fb += "<span class='guestquiz_right'>" + obj.answers[i].text + " " + allString['guestquizwasright'] + ".</span><br>";
                             } else {
-                                fb += "<span style='color:#ff0000'>" + obj.answers[i].text + " was a wrong answer.<br>";
+                                fb += "<span class='guestquiz_wrong'>" + obj.answers[i].text + " " + allString['guestquizwaswrong'] + ".</span><br>";
                             }
                         }
                         score += obj.answers[i].value;
@@ -447,11 +447,11 @@ function validate() {
                 if (fb != "") {
                     dspFeedback(id, true, fb, obj.feedback);
                 } else {
-                    dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                    dspFeedback(id, false, allString['guestquizwrong'], obj.feedback);
                 }
                 break;
             case 'TEXT':
-                dspFeedback(id, false, 'Question type not supported', obj.feedback);
+                dspFeedback(id, false, allString['guestquiznotsupported'], obj.feedback);
                 break;
           case 'UNKNOWN':
               break;
@@ -541,5 +541,5 @@ function dspFeedback(id, success, text, gfb) {
         $('#feedback_'+id).css('color','#49A049');
     }
     $('#feedback_'+id).html(text);
-    $('#feedback_'+id).html($('#feedback_'+id).html()+"<br><span style='color:black'>"+gfb+"</span>");
+    $('#feedback_'+id).html($('#feedback_'+id).html()+"<br><span class='guestquiz_gfb'>"+gfb+"</span>");
 }

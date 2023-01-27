@@ -19,6 +19,7 @@
     width: max-content;
     min-width: 50%;
     max-width: 50%;
+    margin-left: 25%;
 }
 
 .path-mod-guestquiz .guestquiz_question:hover {
@@ -31,8 +32,10 @@
     margin: 5px 5px 15px 5px;
     border: 1px solid black;
     background: #000;
+    min-width: 50%;
     max-width: 50%;
     height: max-content;
+    margin-left: 25%;
 }
 
 .path-mod-guestquiz .guestquiz_question_title {
@@ -66,6 +69,42 @@
 }
 
 .path-mod-guestquiz .guestquiz_error {
-  color: red;
-  font-weight: bold;
+    color: red;
+    font-weight: bold;
+}
+
+.path-mod-guestquiz .guestquiz_right {
+    color: #49A049;
+}
+
+.path-mod-guestquiz .guestquiz_wrong {
+    color: #ff0000;
+}
+
+.path-mod-guestquiz .guestquiz_gfb {
+    color: black;
+}
+
+.path-mod-guestquiz .guestquiz_shortinput {
+    max-width: 25%;
+    margin: 0 5px 0 5px;
+}
+
+.path-mod-guestquiz .guestquiz_warning {
+    color: orange;
+    font-weight: bold;
+}
+
+@media screen and (min-width: 160px) and (max-width: 1600px) {
+    .path-mod-guestquiz .guestquiz_question {
+        margin-left: 5px;
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .path-mod-guestquiz .guestquiz_feedback {
+        margin-left: 5px;
+        min-width: 100%;
+        max-width: 100%;
+    }
 }
