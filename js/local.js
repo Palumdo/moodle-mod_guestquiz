@@ -16,14 +16,14 @@
 /**
  * This generate the HTML from the GIFT format Matching and text question are not supported
  * Matching because it can be tricky to implement and Text because no one will read it.
- * It's not a real GIFT format it's more a sGift format s is for simple, subset, small,... 
+ * It's not a real GIFT format it's more a sGift format s is for simple, subset, small,...
  *
  * @package     mod_guestquiz
  * @copyright   2023 UCLouvain
- * @author      Dominique Palumbo 
+ * @author      Dominique Palumbo
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
+
 /*
 Question object description
   obj.title
@@ -35,13 +35,12 @@ Question object description
     obj.answers[].text
     obj.answers[].feedback
     obj.answers[].value
-*/ 
+*/
 function getQuestions(quiz) {
     // Clean unused data, html (except b,i,u,span,br).
-    quiz = cleanUp(quiz); 
+    quiz = cleanUp(quiz);
     // Try to manage escape chars.
-    quiz = escapeCmdChar(quiz); 
-
+    quiz = escapeCmdChar(quiz);
     // Split string to questions.
     var questions = quiz.split(/\n\s*\n/);
     // Create question object.
@@ -53,8 +52,8 @@ function getQuestions(quiz) {
         str = str.replaceAll(/\n/ig,'').trim();
         // Object question.
         questions[i] = {};
-        // Global feedback 
-        questions[i].feedback = ""; 
+        // Global feedback.
+        questions[i].feedback = "";
         // All block
         questions[i].str = str;
         // internal title is between :: ::
@@ -113,7 +112,7 @@ function getQuestions(quiz) {
                 for (let j=0;j<temp.length;j++) {
                     questions[i].answers[j] = {};
                     // Global feedback is supposed to be at the end of the block the last #### win
-                    questions[i].feedback = globalFeedback(temp[j].split('####')); 
+                    questions[i].feedback = globalFeedback(temp[j].split('####'));
                     let split = temp[j].split('#');
                     let text = split[0];
                     questions[i].answers[j].feedback = getFeedback(split); // Feedback.
@@ -158,14 +157,14 @@ function getQuestions(quiz) {
                     questions[i].answers[j].textRight = textRight.trim();
                     questions[i].answers[j].feedback = "";
                     questions[i].answers[j].value = 1;
-                }        
+                }
                 break;
             case 'MULTIPLE_CHOICE':
                 questions[i].answers = [];
                 for (let j=0;j<temp.length;j++) {
                     questions[i].answers[j] = {};
                     // Global feedback is supposed to be at the end of the block the last #### win.
-                    questions[i].feedback = globalFeedback(temp[j].split('####')); 
+                    questions[i].feedback = globalFeedback(temp[j].split('####'));
                     let prefix = temp[j].charAt(0); // Prefix.
                     questions[i].answers[j].prefix = prefix;
                     temp[j] = temp[j].slice(1); // Remove the prefix.
@@ -196,7 +195,7 @@ function getQuestions(quiz) {
                 questions[i].answers = [];
                 for (let j = 0; j < temp.length; j++) {
                     questions[i].answers[j] = {};
-                    questions[i].feedback = globalFeedback(temp[j].split('####')); 
+                    questions[i].feedback = globalFeedback(temp[j].split('####'));
                     // Prefix
                     questions[i].answers[j].prefix = temp[j].charAt(0);
                     temp[j] = temp[j].slice(1); // Remove prefix.
@@ -208,8 +207,8 @@ function getQuestions(quiz) {
                     questions[i].answers[j].value = 0;
                     if(percent !== null) {
                         questions[i].answers[j].value = 1/(100/percent[1]);
-                    } 
-                }        
+                    }
+                }
                 break;
             case 'TEXT':
                 break;
@@ -230,17 +229,18 @@ function getQuestions(quiz) {
 }
 
   function display(quiz) {
+    var i = 0;
     try {
         var questions = getQuestions(quiz);
         let quizOut = "";
-        for (let i = 0; i < questions.length; i++) {
+        for (i = 0; i < questions.length; i++) {
             let obj = questions[i];
             let id = i+1;
             quizOut += '<div class="guestquiz_question">';
-            quizOut += '<div class="guestquiz_question_title" id="q' + i + '"><b>Question ' + id + '</b>('+obj.title+')</div>' 
+            quizOut += '<div class="guestquiz_question_title" id="q' + i + '"><b>Question ' + id + '</b>('+obj.title+')</div>'
             if (obj.type != 'SHORT_ANSWER') {
               quizOut += '<div class="guestquiz_question_text">' + obj.question + '</div>';
-            }  
+            }
             switch (obj.type) {
                 case 'NUMERIC':
                     quizOut += '<div id="a' + i + '">';
@@ -312,7 +312,7 @@ function getQuestions(quiz) {
       $("#ucl_guest_quiz_message").html('<span class="guestquiz_error">There is a format problem</span>');
     }
   }
- 
+
 function validate() {
     var questions = getQuestions(gQuiz);
     var score = 0;
@@ -326,157 +326,133 @@ function validate() {
         let name = "";
         let ret = "";
         switch (obj.type) {
-          case 'NUMERIC':
-              nbquestion++;
-              name = 'typeNumber'+id;
-              ret = $('#'+name).val();
-              point = 0;
-              $('#feedback_'+id).css('background','#0000');
-              if (ret != '') {
-                  let aVal = [];
-                  for (let i = 0; i < obj.answers.length; i++) {
-                      aVal = obj.answers[i].text.split(':');
-                      if (ret >= aVal[0]-aVal[1] && ret <= parseFloat(aVal[0])+parseFloat(aVal[1])) {
-                          // Keep the feedback and point with the biggest value.
-                          if (obj.answers[i].value > point) { 
-                            point = obj.answers[i].value;
-                            fb = obj.answers[i].feedback;
-                          }
-                      }
-                  }
-              } else { // No answer.
-                  $('#feedback_'+id).css('color','#ff0000');
-                  $('#feedback_'+id).html('Wrong answer');
-              }
-              // Check that the answer was a good one.
-              if (point > 0) {
-                  score += point;
-                  $('#feedback_'+id).css('color','rgb(84, 157, 84)');
-                  if (fb == '') {
-                    fb = 'Good answer';
-                  }
-                  $('#feedback_'+id).html(fb);
-              } else {
-                  $('#feedback_'+id).css('color','#ff0000');
-                  $('#feedback_'+id).html('Wrong answer');
-              }
-              $('#feedback_'+id).html($('#feedback_'+id).html()+"<br><span style='color:black'>"+obj.feedback+"</span>");
-              break;
-          case 'BOOLEAN':
-              nbquestion++;
-              name = 'bool'+id+'Radio';
-              ret = $('input[name="'+name+'"]:checked').val();
-              $('#feedback_'+id).css('background','#0000');
-              if ( (ret == 'true' && obj.answers[0].prefix == '=') || (ret == 'false' && obj.answers[1].prefix == '=')) {
-                  $('#feedback_'+id).css('color','rgb(84, 157, 84)');
-                  $('#feedback_'+id).html('Good answer');
-                  score += 1;
-              } else {
-                  $('#feedback_'+id).css('color','#ff0000');
-                  $('#feedback_'+id).html('Wrong answer');
-              }
-              break;
-          case 'MATCHING':
-                $('#feedback_'+id).css('background','#0000');
-                $('#feedback_'+id).css('color','#ff0000');
-                $('#feedback_'+id).html('Question type not supported');
-                break;
-          case 'MULTIPLE_CHOICE':
-              nbquestion++;
-              name = 'multi'+id+'Radio';
-              $('#feedback_'+id).css('background','#0000');
-              ret = $('input[name="'+name+'"]:checked').val();
-              if (ret !== undefined) {
-                  for (let i = 0; i < obj.answers.length; i++) {
-                      if (ret == i && obj.answers[i].prefix == '=') {
-                          $('#feedback_'+id).css('color','rgb(84, 157, 84)');
-                          if(obj.answers[i].feedback != '') {
-                              $('#feedback_'+id).html(obj.answers[i].feedback);
-                          } else {
-                              $('#feedback_'+id).html('Right answer');
-                          }
-                          score += 1;
-                          i = obj.answers.length;
+            case 'NUMERIC':
+                nbquestion++;
+                name = 'typeNumber'+id;
+                ret = $('#'+name).val();
+                point = 0;
+                if (ret != '') {
+                    let aVal = [];
+                    // Must loop to all possible solution to keep the one with the highest value.
+                    for (let i = 0; i < obj.answers.length; i++) {
+                        aVal = obj.answers[i].text.split(':');
+                        if (ret >= aVal[0]-aVal[1] && ret <= parseFloat(aVal[0])+parseFloat(aVal[1])) {
+                            // Keep the feedback and point with the biggest value.
+                            if (obj.answers[i].value > point) {
+                              point = obj.answers[i].value;
+                              fb = obj.answers[i].feedback;
+                            }
                         }
-                      if (ret == i && obj.answers[i].prefix == '~') {
-                          $('#feedback_'+id).css('color','#ff0000');
-                          if(obj.answers[i].feedback != '') {
-                              $('#feedback_'+id).html(obj.answers[i].feedback);
-                          } else {
-                              $('#feedback_'+id).html('Wrong answer');
-                          }
-                          i = obj.answers.length;
-                      }
-                  }
-              } else {
-                  $('#feedback_'+id).css('color','#ff0000');
-                  $('#feedback_'+id).html('Wrong answer');
-              }
-              $('#feedback_'+id).html($('#feedback_'+id).html()+"<br><span style='color:black'>"+obj.feedback+"</span>");
-              break;
-          case 'SHORT_ANSWER':
-              nbquestion++;
-              name = 'short'+id;
-              ret = $('#'+name).val();
-              point = 0;
-              $('#feedback_'+id).css('background','#0000');
-              for (let i = 0; i < obj.answers.length; i++) {
-                  if(ret.toLowerCase() == obj.answers[i].text.toLowerCase()) {
-                    $('#feedback_'+id).css('color','rgb(84, 157, 84)');
-                    if (obj.answers[i].feedback != '') {
-                        $('#feedback_'+id).html(obj.answers[i].feedback);
-                    } else {
-                        $('#feedback_'+id).html('Good answer');
                     }
-                    point = obj.answers[i].value;
-                    score += obj.answers[i].value;
-                  }
-              }
-              if (point == 0) {
-                  $('#feedback_'+id).css('color','#ff0000');
-                  $('#feedback_'+id).html('Wrong answer');
-              }
-              $('#feedback_'+id).html($('#feedback_'+id).html()+"<br><span style='color:black'>"+obj.feedback+"</span>");
-              break;
-          case 'MULTIPLE_CHOICE_MULT':
-              nbquestion++;
-              let lid = "";
-              name = 'multi'+id+"checkbox_";
-              fb = "";
-              $('#feedback_'+id).css('background','#0000');
-              $('#feedback_'+id).css('color','#000');
-              for (let i = 0; i < obj.answers.length; i++) {
-                  if ($('#'+name+i).is(":checked")) {
-                      if (obj.answers[i].feedback != "")  {
-                          if (obj.answers[i].value > 0) {
-                              fb += "<span style='color:rgb(84, 157, 84)'>";
-                          } else {
-                              fb += "<span style='color:rgb(84, 157, 84)'>";
+                } else { // No answer.
+                    dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                }
+                // Check that the answer was a good one.
+                if (point > 0) {
+                    score += point;
+                    if (fb == '') {
+                      fb = 'Good answer';
+                    }
+                    dspFeedback(id, true, fb, obj.feedback);
+                } else {
+                    dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                }
+                break;
+            case 'BOOLEAN':
+                nbquestion++;
+                name = 'bool'+id+'Radio';
+                ret = $('input[name="'+name+'"]:checked').val();
+                if ( (ret == 'true' && obj.answers[0].prefix == '=') || (ret == 'false' && obj.answers[1].prefix == '=')) {
+                    dspFeedback(id, true, 'Good answer', obj.feedback);
+                    score += 1;
+                } else {
+                    dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                }
+                break;
+            case 'MATCHING':
+                dspFeedback(id, false, 'Question type not supported', obj.feedback);
+                break;
+            case 'MULTIPLE_CHOICE':
+                nbquestion++;
+                name = 'multi'+id+'Radio';
+                ret = $('input[name="'+name+'"]:checked').val();
+                if (ret !== undefined) {
+                    for (let i = 0; i < obj.answers.length; i++) {
+                        if (ret == i && obj.answers[i].prefix == '=') {
+                            if(obj.answers[i].feedback != '') {
+                                dspFeedback(id, true, obj.answers[i].feedback, obj.feedback);
+                            } else {
+                                dspFeedback(id, true, 'Good answer', obj.feedback);
+                            }
+                            score += 1;
+                            i = obj.answers.length;
                           }
-                          fb += obj.answers[i].text + " " + obj.answers[i].feedback + '</span><br>';
+                        if (ret == i && obj.answers[i].prefix == '~') {
+                            if(obj.answers[i].feedback != '') {
+                                dspFeedback(id, false, obj.answers[i].feedback, obj.feedback);
+                            } else {
+                                dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                            }
+                            i = obj.answers.length;
+                        }
+                    }
+                } else {
+                    dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                }
+                break;
+            case 'SHORT_ANSWER':
+                nbquestion++;
+                name = 'short'+id;
+                ret = $('#'+name).val();
+                point = 0;
+                for (let i = 0; i < obj.answers.length; i++) {
+                    if(ret.toLowerCase() == obj.answers[i].text.toLowerCase()) {
+                      if (obj.answers[i].feedback != '') {
+                          dspFeedback(id, true, obj.answers[i].feedback, obj.feedback);
                       } else {
-                          if (obj.answers[i].value > 0) {
-                              fb += "<span style='color:rgb(84, 157, 84)'>" + obj.answers[i].text + " was a good answer.</span><br>";
-                          } else {
-                              fb += "<span style='color:#ff0000'>" + obj.answers[i].text + " was a wrong answer.<br>";
-                          }
+                          dspFeedback(id, true, 'Good answer', obj.feedback);
                       }
+                      point = obj.answers[i].value;
                       score += obj.answers[i].value;
-                  }
-              }
-              if (fb != "") {
-                  $('#feedback_'+id).html(fb);
-              } else {
-                  $('#feedback_'+id).css('color','#ff0000');
-                  $('#feedback_'+id).html('Wrong answer');
-              }
-              $('#feedback_'+id).html($('#feedback_'+id).html()+"<br><span style='color:black'>"+obj.feedback+"</span>");
-              break;
-          case 'TEXT':
-              $('#feedback_'+id).css('background','#0000');
-              $('#feedback_'+id).css('color','#ff0000');
-              $('#feedback_'+id).html('Question type not supported');
-              break;
+                    }
+                }
+                if (point == 0) {
+                    dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                }
+                break;
+            case 'MULTIPLE_CHOICE_MULT':
+                nbquestion++;
+                let lid = "";
+                name = 'multi'+id+"checkbox_";
+                fb = "";
+                for (let i = 0; i < obj.answers.length; i++) {
+                    if ($('#'+name+i).is(":checked")) {
+                        if (obj.answers[i].feedback != "")  {
+                            if (obj.answers[i].value > 0) {
+                                fb += "<span style='color:#49A049'>";
+                            } else {
+                                fb += "<span style='color:#ff0000'>";
+                            }
+                            fb += obj.answers[i].text + " " + obj.answers[i].feedback + '</span><br>';
+                        } else {
+                            if (obj.answers[i].value > 0) {
+                                fb += "<span style='color:#49A049'>" + obj.answers[i].text + " was a good answer.</span><br>";
+                            } else {
+                                fb += "<span style='color:#ff0000'>" + obj.answers[i].text + " was a wrong answer.<br>";
+                            }
+                        }
+                        score += obj.answers[i].value;
+                    }
+                }
+                if (fb != "") {
+                    dspFeedback(id, true, fb, obj.feedback);
+                } else {
+                    dspFeedback(id, false, 'Wrong answer', obj.feedback);
+                }
+                break;
+            case 'TEXT':
+                dspFeedback(id, false, 'Question type not supported', obj.feedback);
+                break;
           case 'UNKNOWN':
               break;
         }
@@ -491,31 +467,32 @@ function unescapeCmdChar(quiz) {
     quiz = quiz.replaceAll(/🧛/ig,'#‍‍');
     quiz = quiz.replaceAll(/🧟/ig,'<br>‍‍‍'); // Verify it !.
     quiz = quiz.replaceAll(/☻☻☻/ig,'‍‍‍');
-    /*  
-    let base64 = str.match(new RegExp('<img src="data' + '(.*?)' + 'image'));
+    let base64 = quiz.match(new RegExp('<img src="data' + '(.*?)' + 'image'));
     if (base64 !== null) {
-      str = str.replace(base64[0], '<img src="data:image');
+      quiz = quiz.replace(base64[0], '<img src="data:image');
     }
-    */
     return quiz;
 }
 
 function cleanUp(quiz) {
     // Put comment before category info
     quiz = quiz.replace('$CATEGORY', '////$CATEGORY');
-    // Remove all comments.
-    quiz = quiz.replace(/("([^\\"]|\\")*")|('([^\\']|\\')*')/g, (m) => m.replace(/\//g, '\1')).replace(/(\/\*[^*]+\*\/)|(\/\/[^\n]+)/g, '').replace(/\1/g, '/');
     // Remove all [html]
     quiz = quiz.replaceAll(/\[html\]/ig,'').trim();
+/*
     // Remove all html...
-    //quiz = quiz.replaceAll(/(<([^>]+)>)/ig, "");
     var keep = {b: true,i: true,u: true,br: true, span: true};
     quiz = quiz.replace(/<\/?([a-z]+) ?[^>]*>/g, function(wholeMatch, tagName) {
         if (keep[tagName]) {
             return wholeMatch;
         }
         return '';
-    });  
+    });
+*/
+    // Remove all comments.
+    quiz = quiz.replaceAll(/https☻☻☻:\/\//ig,'👨‍🎨'); // Escape url before remove comments.
+    quiz = quiz.replace(/("([^\\"]|\\")*")|('([^\\']|\\')*')/g, (m) => m.replace(/\//g, '\1')).replace(/(\/\*[^*]+\*\/)|(\/\/[^\n]+)/g, '').replace(/\1/g, '/');
+    quiz = quiz.replaceAll(/👨‍🎨/ig,'https☻☻☻://'); // Restore url after remove comments.
 
     // Remove first and last empty lines
     while (quiz.charAt(0) == '\n') {
@@ -524,7 +501,6 @@ function cleanUp(quiz) {
     while (quiz.charAt(quiz.length-1) == '\n') {
         quiz = quiz.slice(0, -1);
     }
-    
     return quiz;
 }
 
@@ -533,8 +509,6 @@ function escapeCmdChar(quiz) {
     quiz = quiz.replaceAll(/☻☻☻~/ig,'🤦‍');
     quiz = quiz.replaceAll(/☻☻☻#/ig,'🧛‍‍');
     quiz = quiz.replaceAll(/☻☻☻n/ig,'🧟‍‍‍');
-    quiz = quiz.replaceAll(/🧟‍‍‍  🧟‍‍‍/ig,'🧟{‍‍‍‍‍');
-    quiz = quiz.replaceAll(/🧟‍‍‍🧟‍‍‍/ig,'🧟{‍‍‍‍‍');
 
     return quiz;
 }
@@ -542,7 +516,7 @@ function escapeCmdChar(quiz) {
 function globalFeedback(gfb) {
     if (gfb.length > 1) {
         return gfb[1];
-    } 
+    }
     return "";
 }
 // Feedback.
@@ -556,6 +530,16 @@ function getFeedback(split) {
 function getValue(percent) {
     if (percent === null) {
         return 1;
-    } 
+    }
     return (1/(100/percent[1]));
+}
+// Display feedback.
+function dspFeedback(id, success, text, gfb) {
+    $('#feedback_'+id).css('background','#0000');
+    $('#feedback_'+id).css('color','#ff0000');
+    if (success) {
+        $('#feedback_'+id).css('color','#49A049');
+    }
+    $('#feedback_'+id).html(text);
+    $('#feedback_'+id).html($('#feedback_'+id).html()+"<br><span style='color:black'>"+gfb+"</span>");
 }

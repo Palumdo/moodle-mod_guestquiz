@@ -67,9 +67,10 @@ class mod_guestquiz_mod_form extends moodleform_mod {
             $this->add_intro_editor();
         }
         $mform->addElement('textarea', 'gift', 'GIFT', 'wrap="virtual" rows="25" cols="80"');
-        
-        $mform->addElement('html', "<div class='documentation'>The GIFT format was a subset of GIFT and do not support all the gift possibility of Moodle
-        <br>It's a limited subset. Supported questions type are numeric, boolean, short answer and multichoice");
+
+        $mform->addElement('html', "<div class='documentation'>The GIFT format was a subset of GIFT and do not support
+         all the gift possibility of Moodle<br>It's a limited subset. Supported questions type are numeric,
+        boolean, short answer and multichoice");
         // Add standard elements and buttons.
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
@@ -87,7 +88,7 @@ class mod_guestquiz_mod_form extends moodleform_mod {
         if ($guestquiz != false) {
             $defaultvalues['guestquiz_gift'] = $guestquiz->gift;
         } else {
-          $defaultvalues['guestquiz_gift'] = "empty";
+            $defaultvalues['guestquiz_gift'] = "empty";
         }
     }
 }

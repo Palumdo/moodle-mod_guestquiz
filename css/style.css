@@ -18,6 +18,7 @@
     background-color: #f1f7ff;
     width: max-content;
     min-width: 50%;
+    max-width: 50%;
 }
 
 .path-mod-guestquiz .guestquiz_question:hover {
@@ -54,7 +55,6 @@
     max-width: 100px;
 }
 
-
 .path-mod-guestquiz input[type='radio']{
     transform: scale(1.25);
     margin-bottom: 15px;
@@ -69,12 +69,3 @@
   color: red;
   font-weight: bold;
 }
-
-/***************************************************************/
-/** @media print Only work well on firefox...                 **/
-/***************************************************************/
-@media print {
-}
-/***************************************************************/
-/***************************************************************/
-/***************************************************************/
