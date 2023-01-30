@@ -54,9 +54,9 @@ $PAGE->set_title(format_string($guestquiz->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($modulecontext);
 
-
 $txt = get_strings(array('guestquizwrong', 'guestquizright', 'guestquiznotsupported', 'guestquizwaswrong', 'guestquizwasright', 
-                         'guestquizbadformat', 'guestquiztrue', 'guestquizfalse', 'guestquizvalidate', 'guestquizgift'), 'mod_guestquiz');
+                         'guestquizbadformat', 'guestquiztrue', 'guestquizfalse', 'guestquizvalidate', 'guestquizgift', 'guestquizquestion')
+                         , 'mod_guestquiz');
 $lngjs = '';
 $atxt = get_object_vars ( $txt );
 foreach ($atxt as $idx => $val) {
@@ -65,7 +65,7 @@ foreach ($atxt as $idx => $val) {
 
 echo $OUTPUT->header();
 // Display sGIFT in HTML.
-echo("<div id='ucl_guest_quiz_message'></div>");
+echo("<div id='guestquiz_message'></div>");
 echo("<div id='guestquiz_score'></div>");
 echo("<div id='guestquiz_gift'></div>");
 echo("<script>");
@@ -73,7 +73,7 @@ echo("    var gQuiz = '';");
 echo("    var allString = [];");
 echo("    ".$lngjs);
 echo("    $(document).ready(function() {");
-echo("        gQuiz = `".str_replace("\\", "☻☻☻", $guestquiz->gift)."`;");
+echo("        gQuiz = `".str_replace("\\", "♫♪♫", $guestquiz->gift)."`;");
 echo("        var questions = display(gQuiz);");
 echo("    });");
 echo("</script>");

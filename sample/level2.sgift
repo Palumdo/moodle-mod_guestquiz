@@ -1,0 +1,46 @@
+//*****************************
+// Demo guestquiz level 2
+// The basic format of each question with feedbacks
+//*****************************
+// Simple true false question.
+::QLII01:: Paris is the Capital of Europe. {F}
+#### Paris is the capital of France
+
+// Simple multiple-choice one right choice possible.
+::QLII02:: What is the Capital of Europe? 
+{
+~Paris # Paris is the capital of France.
+=Brussels # Right
+~Barcelone # It's a spanish town.
+~Liège # It's a Belgium town.
+~Strasbourg # It is a French city. There are various European institutions in this city.
+#### Brussels is the Belgium capital and of Europe.
+}
+
+// Simple multiple-choice multiple right answer.
+::QLII03:: Which are european capitals? 
+{
+~%50%Paris # Right.
+~%50%Brussels # Right.
+~%0%Barcelone
+~%0%Liège
+~%0%Strasbourg
+#### Only Brussels and Paris are european capitals.
+}
+
+// Simple short answer
+::QLII04:: The city {=Brussels =Bruxelles} is the capital of europe.
+#### Brussels or Bruxelles in french are accepted.
+
+// Simple numeric question
+::QLII05:: What is a number from 1 to 5? 
+{
+#3:2
+}
+
+// Less simple numeric question
+::QLII06:: What year was the Treaty of Rome signed? 
+{#
+=1957:0 # Perfect
+=%50%1957:2#This is not correct. But not that far. The right answer is 1957
+}

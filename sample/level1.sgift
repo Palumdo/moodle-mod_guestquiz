@@ -1,0 +1,42 @@
+//*****************************
+// Demo guestquiz level 1
+// The basic format of each question
+//*****************************
+// Simple true false question.
+::QLI01:: Paris is the Capital of Europe. {F}
+
+// Simple multiple-choice one right choice possible.
+::QLI02:: What is the Capital of Europe? 
+{
+~Paris
+=Brussels
+~Barcelone
+~Liège
+~Strasbourg
+}
+
+// Simple multiple-choice multiple right answer.
+::QLI03:: Which are european capitals? 
+{
+~%50%Paris
+~%50%Brussels
+~%0%Barcelone
+~%0%Liège
+~%0%Strasbourg
+}
+
+// Simple short answer
+::QLI04:: The city {=Brussels =Bruxelles} is the capital of europe.
+
+// Simple numeric question
+::QLI05:: What is a number from 1 to 5? 
+{
+#3:2
+}
+
+// Less simple numeric question
+::QLI06:: What year was the Treaty of Rome signed? 
+{#
+=1957:0
+=%50%1957:2#This is not correct. But not that far. The right answer is 1957
+}

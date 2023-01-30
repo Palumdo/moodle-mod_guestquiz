@@ -52,8 +52,10 @@ function getQuestions(quiz) {
         str = str.replaceAll(/\n/ig,'').trim();
         // Object question.
         questions[i] = {};
-        // Global feedback.
-        questions[i].feedback = "";
+        // Global feedback
+        questions[i].feedback = globalFeedback(str.split('####'));
+        // Remove the global feedback.
+        str = str.replace('####'+ questions[i].feedback, "");
         // All block
         questions[i].str = str;
         // internal title is between :: ::
@@ -111,8 +113,6 @@ function getQuestions(quiz) {
                 questions[i].answers = [];
                 for (let j=0;j<temp.length;j++) {
                     questions[i].answers[j] = {};
-                    // Global feedback is supposed to be at the end of the block the last #### win
-                    questions[i].feedback = globalFeedback(temp[j].split('####'));
                     let split = temp[j].split('#');
                     let text = split[0];
                     questions[i].answers[j].feedback = getFeedback(split); // Feedback.
@@ -163,8 +163,6 @@ function getQuestions(quiz) {
                 questions[i].answers = [];
                 for (let j=0;j<temp.length;j++) {
                     questions[i].answers[j] = {};
-                    // Global feedback is supposed to be at the end of the block the last #### win.
-                    questions[i].feedback = globalFeedback(temp[j].split('####'));
                     let prefix = temp[j].charAt(0); // Prefix.
                     questions[i].answers[j].prefix = prefix;
                     temp[j] = temp[j].slice(1); // Remove the prefix.
@@ -182,7 +180,6 @@ function getQuestions(quiz) {
                 questions[i].answers = [];
                 for (let j = 0; j < temp.length; j++) {
                     questions[i].answers[j] = {};
-                    questions[i].feedback = globalFeedback(temp[j].split('####'));
                     temp[j] = temp[j].slice(1); // Remove prefix.
                     let split = temp[j].split('#');
                     questions[i].answers[j].text = split[0].trim().replace(/%.*%/, ''); // Text.
@@ -195,7 +192,6 @@ function getQuestions(quiz) {
                 questions[i].answers = [];
                 for (let j = 0; j < temp.length; j++) {
                     questions[i].answers[j] = {};
-                    questions[i].feedback = globalFeedback(temp[j].split('####'));
                     // Prefix
                     questions[i].answers[j].prefix = temp[j].charAt(0);
                     temp[j] = temp[j].slice(1); // Remove prefix.
@@ -237,7 +233,7 @@ function getQuestions(quiz) {
             let obj = questions[i];
             let id = i+1;
             quizOut += '<div class="guestquiz_question">';
-            quizOut += '<div class="guestquiz_question_title" id="q' + i + '"><b>Question ' + id + '</b>('+obj.title+')</div>'
+            quizOut += '<div class="guestquiz_question_title" id="q' + i + '"><b>' + allString['guestquizquestion'] + ' ' + id + '</b><span class="guestquiz_small">('+obj.title+')</span></div>'
             if (obj.type != 'SHORT_ANSWER') {
               quizOut += '<div class="guestquiz_question_text">' + obj.question + '</div>';
             }
@@ -253,11 +249,11 @@ function getQuestions(quiz) {
                     quizOut += '<div id="a' + i + '">' +
                                '<div class="form-check">' +
                                '   <input class="form-check-input" type="radio" name="bool'+id+'Radio" id="bool'+id+'Radio_true" value="true">' +
-                               '   <label class="form-check-label" for="bool'+id+'Radio_true">True</label>' +
+                               '   <label class="form-check-label" for="bool'+id+'Radio_true">'+allString['guestquiztrue']+'</label>' +
                                '</div>' +
                                '<div class="form-check">' +
                                '   <input class="form-check-input" type="radio" name="bool'+id+'Radio" id="bool'+id+'Radio_false" value="false">' +
-                               '   <label class="form-check-label" for="bool'+id+'Radio_false">False</label>' +
+                               '   <label class="form-check-label" for="bool'+id+'Radio_false">'+allString['guestquizfalse']+'</label>' +
                                '</div>' +
                                '</div>';
                     break;
@@ -282,7 +278,8 @@ function getQuestions(quiz) {
                         q = q.replace(t[0], '');
                     }
                     let shortInput = '<input type="text" class="form-control guestquiz_shortinput" id="short'+id+'">';
-                    q = q.replace(/\{.*?[^\)]\}/g, shortInput);
+                    // This regex has trouble with parenthesis -> /\{.*?[^\)]\}/g.
+                    q = q.replace(/\{.*?\}/g, shortInput);
                     quizOut += '<div class="input-group" id="qsa' + i + '">' + q + '</div>';
                     break;
               case 'MULTIPLE_CHOICE_MULT':
@@ -309,7 +306,7 @@ function getQuestions(quiz) {
       $(quizOut).appendTo($('#guestquiz_gift'));
     } catch(error) {
       console.log(error);
-      $("#ucl_guest_quiz_message").html('<span class="guestquiz_error">'+allString['guestquizbadformat']+'</span>');
+      $("#guestquiz_message").html('<span class="guestquiz_error">'+allString['guestquizbadformat']+'</span>');
     }
   }
 
@@ -462,19 +459,6 @@ function validate() {
     $("#page").scrollTop(0);
   }
 
-function unescapeCmdChar(quiz) {
-    quiz = quiz.replaceAll(/🧝/ig,'=');
-    quiz = quiz.replaceAll(/🤦/ig,'~‍');
-    quiz = quiz.replaceAll(/🧛/ig,'#‍‍');
-    quiz = quiz.replaceAll(/🧟/ig,'<br>‍‍‍'); // Verify it !.
-    quiz = quiz.replaceAll(/☻☻☻/ig,'‍‍‍');
-    let base64 = quiz.match(new RegExp('<img src="data' + '(.*?)' + 'image'));
-    if (base64 !== null) {
-      quiz = quiz.replace(base64[0], '<img src="data:image');
-    }
-    return quiz;
-}
-
 function cleanUp(quiz) {
     // Put comment before category info
     quiz = quiz.replace('$CATEGORY', '////$CATEGORY');
@@ -506,17 +490,33 @@ function cleanUp(quiz) {
 }
 
 function escapeCmdChar(quiz) {
-    quiz = quiz.replaceAll(/☻☻☻=/ig,'🧝');
-    quiz = quiz.replaceAll(/☻☻☻~/ig,'🤦‍');
-    quiz = quiz.replaceAll(/☻☻☻#/ig,'🧛‍‍');
-    quiz = quiz.replaceAll(/☻☻☻n/ig,'🧟‍‍‍');
-
+    quiz = quiz.replaceAll(/♫♪♫=/ig,'🧝');
+    quiz = quiz.replaceAll(/♫♪♫~/ig,'🤦‍');
+    quiz = quiz.replaceAll(/♫♪♫#/ig,'🧛');
+    quiz = quiz.replaceAll(/♫♪♫n/ig,'🧟‍‍‍');
+    quiz = quiz.replaceAll(/♫♪♫%/ig,'‍‍🦴');
     return quiz;
 }
+
+function unescapeCmdChar(quiz) {
+    quiz = quiz.replaceAll(/🧝/ig,'=');
+    quiz = quiz.replaceAll(/🤦/ig,'~‍');
+    quiz = quiz.replaceAll(/🧛/ig,'#');
+    quiz = quiz.replaceAll(/🧟/ig,'<br>‍‍‍'); // Verify it !.
+    quiz = quiz.replaceAll(/♫/ig,'‍‍‍');
+    quiz = quiz.replaceAll(/‍‍🦴/ig,'%');
+    let base64 = quiz.match(new RegExp('<img src="data' + '(.*?)' + 'image'));
+    if (base64 !== null) {
+      quiz = quiz.replace(base64[0], '<img src="data:image');
+    }
+    return quiz;
+}
+
 // Global feedback.
 function globalFeedback(gfb) {
     if (gfb.length > 1) {
-        return gfb[1];
+        let temp = gfb[1].split('}');
+        return temp[0];
     }
     return "";
 }

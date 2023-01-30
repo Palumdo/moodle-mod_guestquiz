@@ -105,6 +105,10 @@
     font-size: 2em;
 }
 
+.path-mod-guestquiz .guestquiz_small {
+    font-size: 0.75em;
+}
+
 @media screen and (min-width: 160px) and (max-width: 1600px) {
     .path-mod-guestquiz .guestquiz_question {
         margin-left: 5px;

@@ -46,3 +46,4 @@ $string['guestquizfalse']                     = 'False';
 $string['guestquizvalidate']                  = 'Validate';
 $string['guestquizgift']                      = 'sGIFT';
 $string['guestquizgift_help']                 = 'This field support a subset of GIFT question format. For more info please read the documentation.';
+$string['guestquizquestion']                  = 'Question';
