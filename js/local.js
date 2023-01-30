@@ -28,7 +28,7 @@
 Question object description
   obj.title
   obj.question
-  obj.type -> NUMERIC,BOOLEAN,MULTIPLE_CHOICE,SHORT_ANSWER,MULTIPLE_CHOICE_MULT,(MATCHING,TEXT) not supported
+  obj.type -> NUMERIC,BOOLEAN,MULTIPLE_CHOICE,SHORT_ANSWER,MULTIPLE_CHOICE_MULT,(MATCHING,TEXT,MISSING WORD) not supported
   obj.feedback -> Global feedback
   obj.answers[]
     obj.answers[].prefix
@@ -462,8 +462,11 @@ function validate() {
 function cleanUp(quiz) {
     // Put comment before category info
     quiz = quiz.replace('$CATEGORY', '////$CATEGORY');
-    // Remove all [html]
+    // Remove all [format]
     quiz = quiz.replaceAll(/\[html\]/ig,'').trim();
+    quiz = quiz.replaceAll(/\[moodle\]/ig,'').trim();
+    quiz = quiz.replaceAll(/\[plain\]/ig,'').trim();
+    quiz = quiz.replaceAll(/\[markdown\]/ig,'').trim();
 /*
     // Remove all html...
     var keep = {b: true,i: true,u: true,br: true, span: true};
