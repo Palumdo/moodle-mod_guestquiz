@@ -40,3 +40,14 @@
 =1957:0
 =%50%1957:2#This is not correct. But not that far. The right answer is 1957
 }
+
+::GIFT Control Characters::
+Which of the following is NOT a control character for the GIFT import format? {
+  ~ \~     # \~ is a control character.
+  ~ \=     # \= is a control character.
+  ~ \#     # \# is a control character.
+  ~ \{     # \{ is a control character.
+  ~ \}     # \} is a control character.
+  = \      # Correct! \ (backslash) is not a control character. BUT,
+             it is used to escape the control characters.
+}

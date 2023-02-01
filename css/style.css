@@ -1,4 +1,4 @@
-.path-mod-guestquiz #guestquiz_score {
+.path-mod-guestquiz #guestquiz-score {
     font-size: 2em;
     font-weigh: bold;
     padding: 5px;
@@ -11,7 +11,7 @@
     display: none;
 }
 
-.path-mod-guestquiz .guestquiz_question {
+.path-mod-guestquiz .guestquiz-question {
     border: 1px solid black;
     padding: 5px;
     margin: 5px 5px 15px 5px;
@@ -23,11 +23,11 @@
     margin-left: 25%;
 }
 
-.path-mod-guestquiz .guestquiz_question:hover {
+.path-mod-guestquiz .guestquiz-question:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
 }
 
-.path-mod-guestquiz .guestquiz_feedback {
+.path-mod-guestquiz .guestquiz-feedback {
     font-weight: bold;
     border-radius:5px;
     margin: 5px 5px 15px 5px;
@@ -39,13 +39,13 @@
     margin-left: 25%;
 }
 
-.path-mod-guestquiz .guestquiz_question_title {
+.path-mod-guestquiz .guestquiz-question-title {
     border-bottom: 1px solid black;
     font-size: 1.25em;
     margin-bottom:10px;
 }
 
-.path-mod-guestquiz .guestquiz_question_text {
+.path-mod-guestquiz .guestquiz-question-text {
     font-size: 1.15em;
     margin-bottom: 10px;
     font-weight: bold;
@@ -55,7 +55,7 @@
   font-size: 1.10em;
 }
 
-.path-mod-guestquiz .guestquiz_numeric {
+.path-mod-guestquiz .guestquiz-numeric {
     max-width: 100px;
 }
 
@@ -69,68 +69,125 @@
     margin-bottom: 15px;
 }
 
-.path-mod-guestquiz .guestquiz_error {
+.path-mod-guestquiz .guestquiz-error {
     color: red;
     font-weight: bold;
 }
 
-.path-mod-guestquiz .guestquiz_right {
+.path-mod-guestquiz .guestquiz-right {
     color: #49A049;
 }
 
-.path-mod-guestquiz .guestquiz_wrong {
+.path-mod-guestquiz .guestquiz-wrong {
     color: #ff0000;
 }
 
-.path-mod-guestquiz .guestquiz_gfb {
+.path-mod-guestquiz .guestquiz-gfb {
     color: black;
 }
 
-.path-mod-guestquiz .guestquiz_shortinput {
+.path-mod-guestquiz .guestquiz-shortinput {
     max-width: 25%;
     margin: 0 5px 0 5px;
 }
 
-.path-mod-guestquiz .guestquiz_warning {
+.path-mod-guestquiz .guestquiz-warning {
     color: orange;
     font-weight: bold;
 }
-.path-mod-guestquiz .guestquiz_validate {
+.path-mod-guestquiz .guestquiz-validate {
     margin-left: 20%;
 }
 
-.path-mod-guestquiz .guestquiz_validate button {
+.path-mod-guestquiz .guestquiz-validate button {
     width: 75%;
     font-weight: bold;
     font-size: 2em;
 }
 
-.path-mod-guestquiz .guestquiz_small {
+.path-mod-guestquiz .guestquiz-small {
     font-size: 0.75em;
 }
 
+.path-mod-guestquiz .btn-white {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.path-mod-guestquiz .btn-white:hover {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+}
+
+.path-mod-guestquiz .guestquiz-form label {
+    font-weight: bold;
+}
+
+.path-mod-guestquiz .guestquiz-form label.form-check-label {
+    font-weight: normal;
+}
+
+.path-mod-guestquiz #guestquiztitle {
+    font-size: 2em;
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+}
+
+.path-mod-guestquiz #guestquizhelperwelcome {
+    font-weight: bold;
+    background-color: #ccc;
+    text-align: center;
+    width: 100%;
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+}
+
+.path-mod-guestquiz .guestquiz-form {
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 5px;
+    width: 100%;
+}
+
+.path-mod-guestquiz .guestquiz-middle {
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.path-mod-guestquiz .guestquiz-margin {
+    margin-left: 5px;
+}
+
 @media screen and (min-width: 160px) and (max-width: 1600px) {
-    .path-mod-guestquiz .guestquiz_question {
+    .path-mod-guestquiz .guestquiz-question {
         margin-left: 5px;
         min-width: 100%;
         max-width: 100%;
     }
 
-    .path-mod-guestquiz .guestquiz_feedback {
+    .path-mod-guestquiz .guestquiz-feedback {
         margin-left: 5px;
         min-width: 100%;
         max-width: 100%;
     }
 
-    .path-mod-guestquiz .guestquiz_validate {
+    .path-mod-guestquiz .guestquiz-validate {
         margin-left: 0;
     }
 
-    .path-mod-guestquiz .guestquiz_validate button {
+    .path-mod-guestquiz .guestquiz-validate button {
         width: 100%;
     }
     
-    .path-mod-guestquiz #guestquiz_score {
+    .path-mod-guestquiz #guestquiz-score {
       margin-left: 5px;
     }
 }

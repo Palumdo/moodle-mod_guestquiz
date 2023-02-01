@@ -1,15 +1,15 @@
-//*****************************
+//*************************
 // Demo guestquiz level 3
 // The basic format of each question with feedbacks and HTML
-//*****************************
+//*************************
 // Boolean true false question.
 ::QLIII01:: Paris is the Capital of Europe. {F}
 #### Paris is the capital of France
 
 // Multiple-choice one right choice possible.
-::QLIII02:: What is the Capital of <img width=32 height=32 src="data:image/png;base64,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">? 
+::QLIII02:: What is the Capital of <img width=32 height=32 src="data:image/png;base64,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">?
 {
-~Paris # Paris is the capital of France.
+~<a href\="https://www.paris.fr/">Paris</a># Paris is the capital of France.
 =Brussels # Right
 ~Barcelone # It's a spanish town.
 ~Liège # It's a Belgium town.
@@ -18,10 +18,10 @@
 }
 
 // Multiple-choice multiple right answer.
-::QLIII03:: Which are european capitals? 
+::QLIII03:: Which are european capitals?
 {
 ~%50%<span style\="color:\#0055A4">Paris</span># Right.
-~%50%<span style\="color:black;font-weight:bold">Brussels</span># Right.
+~%50%<span style\="color:black;font-weight:bold">Brussels \ Bruxelles</span># Right.
 ~%0%<span style\="color:\#db0030">Barcelone</span>
 ~%0%<span style\="color:yellow;background:black">Liège</span>
 ~%0%<span style\="color:white;background:black">Strasbourg</span>
@@ -29,7 +29,8 @@
 }
 
 // Multiple-choice multiple right answer.
-::QLIII03a:: Which are <img width=32 height=32 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAYHSURBVFhHvVdbbxVVFF57Zs6ca9tDaQu0VLGkoVJIDKghKtrEaDS8GA0hRox4IRo1xksJ9oEXExIffPDB+Ac0yhuJMZAQIuHygJFowGohSCwSKC2WnrYz5zZnZvzW2jOnpQhpC/ql66w9e6/7XnvPVJEG8zDi/wdiX+HsAG7nfLGBsaNbgddCpcwmpZSlKPSUMhIUhj5hMnIY4jkQvjgYsKVzg11ka0SWQjCfDKVClV+5GxJWuzJMGxGIvHjXmncHITvUafAISYWGCiYTCZpQuRW79phm9pOWlkYyTUQMIe06juQOEbmOI+AA3GKVHMcpU1h4QjW0f3y4e03Pkx0rm6nmB5K4IVGwxl2LIMqcKSTbNumnk+dp8vrQ+6qxffeRxtb7+hJ2UhxjF3TykW9h0Xgu8g0lZJMkzzeimTlgh7M52ilAAEEQUnF6ioqFwX5oKrGPNokchTLmIZuVNV4C5bNlMsCZGlJVGnj9GO3acZySFhpqjozoxPr4YZshJmPbdR83tBrXiBfEAH5mGeldPUqffXSQNm8cZklySzadPruCzv3ZQp5nkmUG9Pa2H2ngjaPUkK1ovciOQsZiC2MwQDtnSO14X3SjakEZ40+qwscQzxev5GliKkXjhbSeB+07sJ72H14rz76v6G+s/TXSRNOOLTpiJP5lHzwS23pegsx3DBzJNXf2WXaCDOy/lB1lkcqAEhYb13us1W4PVovlMtgmt5iQMfuU/edAkFPZddADv3MPsIKugCYW1uM1q67RBy+foK7Oa3jmStxMge9TzfPIq1SpWq5QuQQqVmjzA7/R3ne/o47WUax5kKlBlnWiIKIwdWrYI3EacxAL+jWipx85T45r1+d9GKnCIDtxp0tUcstUKcE55rxqTRz5tRqVK3AWVOnchQaqIDgOrOiWqOiUIF+RwBmyBZl8e59pWdKRTFx+Po6ZtIcS2pRNV7GvBgz7Orh5ALcsnMAempP7Q+c0swUBgvPc89EWIHNZYIFZ1XAcC049mpgIJLP5OmeEuPkVrAeBLvKtoAOIHGrn2FdwRVV6atMgzrQngotBU65M2549Q404ljeAOzVCFICuQlwBD9k+uG6YvtzzPa3vGRHBxWDjusu0970jtCRfjGZuhvSAnV3WZ5imPnoIgLGsxZWr2UcJxwsZmVsoWpsdNKOFpIimnKROUKo9pwe4BCGk+JiwEAdy7XqORsdzi3bOGIP+lJOiaTcZzdwMef9y2ePmYzCLx6s7x4UvFH6gqKdrLHrS0BYjRA+GSlhKJUwyhHAU62OTNm24Sl9/ehB8hJSFLZon4cVAr7wwiB76gTo7HbE140OTsi2RNXMdz+ywMo2rjKRNJiYNvpI5EHBlJujq5BIavNhBTjULI5ibBxkgC7YuXG2jU+fuodDSNhVsEu4bJC3Og2DykFq+6fOjVqrlcdNAO8SXEEqjOY/4Qders82hS2O5mfk54P7tap+i4ZEGXWHcBVqTt1dXXTgE/cCjSuFsv5nv3fqqlcvfa6aTZKaYUAmQkULUwkGozrruIn3xzhkaLTbScKGZFObySxQFFrrb1jJvPTdMO7dcouN/dFKZMqQifQVbKpkUHSMJu0K45FABc+nGl15LIAALgmaaF7SSKVwHxM9VlYazDA2NtlGh1kC5JoMGtl6kDT0l+vnyMgkilUnS5elmOnVpeV2Pnc/YjMYghXHgTxxS3TsPHLfSSx/Tr+CZLRD8e6XrePHhESrjY2T/L23RzC2g92FmC/ATBD6VRn/tV2s/PHbCzDQ/ik/ymf1n6ch5PYb6IAIbioaz5euY5VS4DNALENRB+OReOd2vut/c91W266HtbEEqEKlwMHcT4lSijBrSrwbXT367XaWSyfsTraufV1YiGX8gciBxBHcah04HgNf4csOlFwalybHAGftGtba2Ktu2jSAIVD6fV729vRKAhfMKEv9YE8WFwsDRhtPQwxcT28A/IzQ0NBRWKvJ25Hl8KWgIz2azKp1O4x8H/QXk46uFFZkvFJwEB8CJMEy87DiAGr6WXNeNC3PDf8cMXojH/xVm+aDwHyhkHxjrlm4WAAAAAElFTkSuQmCC"> countries? 
+// If you use base64 image you've to escape also the control character like you can see the last = was escaped in the flags
+::QLIII03a:: Which are <img width=32 height=32 src="data:image/png;base64,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"> countries?
 {
 ~%50%<img src\="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHUSURBVFhH7ZZNUsMwDEZld4Y7cBoWHIETcEi2XIYjMNOflFg82WnIlERyVyzol3mx29qyJCtO5a5/r/T49KZTf1M5PcjH+7OohkOrSiny+fIq+csfXzK2j4NKxH44Sd/STeZoOexFj3DaJh0PBMfgCCxKmoz3KKUkWaHYJ8Lcoo2JL1VgiqU2wqKvcJVsC/nKiYERvXu/1I7o86gw+tToAoi9bsMcnYNlYcSwFhXuzEwuOHFmgo8ZvlnMSTiRmOrBFtAJECWWG5ygtqRY9ugXHVwybrJKwJTeW7AqV/NEdy4ZN8xNl5ouHq21hdaoohasCDWAIqQTQbm0glz5bQUrRElsG9TDwMFOA9z1aYvT7RFZt2xddm9lzSsosAieKRyo5RhqmYnmvA8ZYIGAS/BrBnxqKbh0FaEUc4S2V5opLptqe2xROizP8S0smoIja79dM0ePHz1zus4BlYH23KLrUC0XjNt7ZHrvbfOzX9tw+/XdJhY1raXAPq9FvaTrZVQN1qTGaqPMEcsAlz2SDvwhYWAEBkvfU4ha9LXBCR19ujJghsYpZSF1K1i8ti0fnqgDCi1A5csOuC7Ni9KS5NmRLfreBdDqIFYbb5mLC9C4664/lsg3Npawxa1XhxIAAAAASUVORK5CYII\="># Right.
 ~%50%<img src\="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHwSURBVFhH7ZbBWcMwDIUlB0ZhG5ZgFEbgxBhsADuwBBNw4Wts3lOcEhpZds7ta3+7SS3FlmS3ctPVSx/enorWi5ZUVT4fX2XCa0Rfzy/y/f4hWlK94yuLSpJS8O5zRGaT9z4uSZokoXe/vOTseAA0wrAWRC5ixriUMF470KH1g/qbjJkGYAJzzpJLDJqzwRDpBzNH/mkbkLGqpJiAzlhhwOp4VDaWNpaGNmhRhKjEnixNzFudSBf4VDyBniMoFKHj4IJce05iVGbH9HZIaJGOmJxn7NnF4YgKVl9krldtcSegBpAHhDiCO4C9GdVoRBxRfFRVceVHHCdEDAb1qq27GSlgfrc58bCH841+FCojDREcZylYD5wWi7P6YUgTxrNgadOGWzF5K96BQ4Mmo+LKaGfFGJCt/jZha8EoefdbCMKrFrp1x/uwALENMbAH5TyoBePFDXvC5wiOw+7aO/DAktz7Lni4op8Q5gj+X6hFGMMoHEkDGpkR36yo9oCC5Q+dA/TJ7UrxOO5S7nGCImK9Fwp1qAi37HaIg2fngyJkaP8VnIOlgYU7KCtB7f9unBD/9YgP5c++DWaASPjfbWG0kuA8XoBVAMZbfkeE0Sgy1sDUwOZoQcW/YrSMFmbTwpt9BLVM9tRgGYN9YP1N1yyRX7jk04hDjKz/AAAAAElFTkSuQmCC">
@@ -43,13 +44,13 @@
 #### Brussels or Bruxelles in french are accepted.
 
 // Numeric question
-::QLIII05:: What is a number from 1 to 5? 
+::QLIII05:: What is a number from 1 to 5?
 {
 #3:2
 }
 
 // Numeric question
-::QLIII06:: What year was the Treaty of Rome signed? 
+::QLIII06:: What year was the Treaty of Rome signed?
 {#
 =1957:0 # Perfect
 =%50%1957:2#This is not correct. But not that far. The right answer is 1957
@@ -59,24 +60,24 @@
 // Numeric question
 ::QLIII07:: What is the sum of the first line?
 <table style\="border:1px solid black;border-collapse:collapse;text-align:center;">
-  <tr style\="border:1px solid black;">
-      <th style\="border:1px solid black;"></th>
-      <th>Col 1</th>
-      <th>Col 2</th>
-      <th>Col 3</th>
-  </tr>
-  <tr>
-      <td style\="border:1px solid black;">Row 1</td>
-      <td>1</td>
-      <td>3</td>
-      <td>5</td>
-  </tr>
-  <tr>
-      <td style\="border:1px solid black;">Row 2</td>
-      <td>8</td>
-      <td>12</td>
-      <td>17</td>
-  </tr>
+<tr style\="border:1px solid black;">
+<th style\="border:1px solid black;"></th>
+<th>Col 1</th>
+<th>Col 2</th>
+<th>Col 3</th>
+</tr>
+<tr>
+<td style\="border:1px solid black;">Row 1</td>
+<td>1</td>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td style\="border:1px solid black;">Row 2</td>
+<td>8</td>
+<td>12</td>
+<td>17</td>
+</tr>
 </table>
 {
 #9:0

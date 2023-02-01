@@ -36,6 +36,7 @@ Question object description
     obj.answers[].feedback
     obj.answers[].value
 */
+// Transform the GIFT string to an array of question object.
 function getQuestions(quiz) {
     // Clean unused data, html (except b,i,u,span,br).
     quiz = cleanUp(quiz);
@@ -224,6 +225,7 @@ function getQuestions(quiz) {
     return questions;
 }
 
+  // Display the GIFT string to HTML.
   function display(quiz) {
     var i = 0;
     try {
@@ -232,16 +234,16 @@ function getQuestions(quiz) {
         for (i = 0; i < questions.length; i++) {
             let obj = questions[i];
             let id = i+1;
-            quizOut += '<div class="guestquiz_question">';
-            quizOut += '<div class="guestquiz_question_title" id="q' + i + '"><b>' + allString['guestquizquestion'] + ' ' + id + '</b><span class="guestquiz_small">('+obj.title+')</span></div>'
+            quizOut += '<div class="guestquiz-question">';
+            quizOut += '<div class="guestquiz-question-title" id="q' + i + '"><b>' + allString['guestquizquestion'] + ' ' + id + '</b><span class="guestquiz-small">('+obj.title+')</span></div>'
             if (obj.type != 'SHORT_ANSWER') {
-              quizOut += '<div class="guestquiz_question_text">' + obj.question + '</div>';
+              quizOut += '<div class="guestquiz-question-text">' + obj.question + '</div>';
             }
             switch (obj.type) {
                 case 'NUMERIC':
                     quizOut += '<div id="a' + i + '">';
                     quizOut += '    <div class="form-outline">' +
-                               '        <input type="number" id="typeNumber'+id+'" class="form-control guestquiz_numeric"/>' +
+                               '        <input type="number" id="typeNumber'+id+'" class="form-control guestquiz-numeric"/>' +
                                '    </div>';
                     quizOut += '</div>';
                     break;
@@ -258,7 +260,7 @@ function getQuestions(quiz) {
                                '</div>';
                     break;
                 case 'MATCHING':
-                    quizOut += '<div class="guestquiz_warning" id="a' + i + '">' + allString['guestquiznotsupported'] + '</div>';
+                    quizOut += '<div class="guestquiz-warning" id="a' + i + '">' + allString['guestquiznotsupported'] + '</div>';
                     break;
                 case 'MULTIPLE_CHOICE':
                     let value = "";
@@ -277,7 +279,7 @@ function getQuestions(quiz) {
                     if (t !== null) {
                         q = q.replace(t[0], '');
                     }
-                    let shortInput = '<input type="text" class="form-control guestquiz_shortinput" id="short'+id+'">';
+                    let shortInput = '<input type="text" class="form-control guestquiz-shortinput" id="short'+id+'">';
                     // This regex has trouble with parenthesis -> /\{.*?[^\)]\}/g.
                     q = q.replace(/\{.*?\}/g, shortInput);
                     quizOut += '<div class="input-group" id="qsa' + i + '">' + q + '</div>';
@@ -293,30 +295,30 @@ function getQuestions(quiz) {
                   quizOut += '</div>';
                   break;
             case 'TEXT':
-                quizOut += '<div class="guestquiz_warning" id="a' + i + '">' + allString['guestquiznotsupported'] + '</div>';
+                quizOut += '<div class="guestquiz-warning" id="a' + i + '">' + allString['guestquiznotsupported'] + '</div>';
                 break;
             case 'UNKNOWN':
                 break;
         }
         quizOut += '</div>';
-        quizOut += '<div class="guestquiz_feedback" id="feedback_'+id+'"></div>';
+        quizOut += '<div class="guestquiz-feedback" id="feedback_'+id+'"></div>';
       }
-      $('#guestquiz_gift').empty();
-      quizOut += '<div class="guestquiz_validate"><button class="btn btn-primary" type="button" onclick="validate()">'+allString['guestquizvalidate']+'</button></div>';
-      $(quizOut).appendTo($('#guestquiz_gift'));
+      $('#guestquiz-gift').empty();
+      quizOut += '<div class="guestquiz-validate"><button class="btn btn-primary" type="button" onclick="validate()">'+allString['guestquizvalidate']+'</button></div>';
+      $(quizOut).appendTo($('#guestquiz-gift'));
     } catch(error) {
       console.log(error);
-      $("#guestquiz_message").html('<span class="guestquiz_error">'+allString['guestquizbadformat']+'</span>');
+      $("#guestquiz-message").html('<span class="guestquiz-error">'+allString['guestquizbadformat']+'</span>');
     }
   }
-
+// Display the result of the quiz and feedbacks to the student.
 function validate() {
     var questions = getQuestions(gQuiz);
     var score = 0;
     var nbquestion = 0;
     var point = 0;
     var fb = '';
-    $('.guestquiz_feedback').css('padding', '5px');
+    $('.guestquiz-feedback').css('padding', '5px');
     for (let i = 0;i < questions.length; i++) {
         let obj = questions[i];
         let id = i + 1;
@@ -426,16 +428,16 @@ function validate() {
                     if ($('#'+name+i).is(":checked")) {
                         if (obj.answers[i].feedback != "")  {
                             if (obj.answers[i].value > 0) {
-                                fb += "<span class='guestquiz_right'>";
+                                fb += "<span class='guestquiz-right'>";
                             } else {
-                                fb += "<span class='guestquiz_wrong'>";
+                                fb += "<span class='guestquiz-wrong'>";
                             }
                             fb += obj.answers[i].text + " " + obj.answers[i].feedback + '</span><br>';
                         } else {
                             if (obj.answers[i].value > 0) {
-                                fb += "<span class='guestquiz_right'>" + obj.answers[i].text + " " + allString['guestquizwasright'] + ".</span><br>";
+                                fb += "<span class='guestquiz-right'>" + obj.answers[i].text + " " + allString['guestquizwasright'] + ".</span><br>";
                             } else {
-                                fb += "<span class='guestquiz_wrong'>" + obj.answers[i].text + " " + allString['guestquizwaswrong'] + ".</span><br>";
+                                fb += "<span class='guestquiz-wrong'>" + obj.answers[i].text + " " + allString['guestquizwaswrong'] + ".</span><br>";
                             }
                         }
                         score += obj.answers[i].value;
@@ -454,35 +456,27 @@ function validate() {
               break;
         }
     }
-    $('#guestquiz_score').html('Score:'+score.toFixed(2)+"/"+nbquestion);
-    $('#guestquiz_score').css('display', 'block');
+    $('#guestquiz-score').html('Score:'+score.toFixed(2)+"/"+nbquestion);
+    $('#guestquiz-score').css('display', 'block');
     $("#page").scrollTop(0);
-  }
+}
 
+// Keep the part of the GIFT string that will be used to create question object.
 function cleanUp(quiz) {
-    // Put comment before category info
+    // Put comment before category info.
     quiz = quiz.replace('$CATEGORY', '////$CATEGORY');
-    // Remove all [format]
+    // Remove all [format].
     quiz = quiz.replaceAll(/\[html\]/ig,'').trim();
     quiz = quiz.replaceAll(/\[moodle\]/ig,'').trim();
     quiz = quiz.replaceAll(/\[plain\]/ig,'').trim();
     quiz = quiz.replaceAll(/\[markdown\]/ig,'').trim();
-/*
-    // Remove all html...
-    var keep = {b: true,i: true,u: true,br: true, span: true};
-    quiz = quiz.replace(/<\/?([a-z]+) ?[^>]*>/g, function(wholeMatch, tagName) {
-        if (keep[tagName]) {
-            return wholeMatch;
-        }
-        return '';
-    });
-*/
-    // Remove all comments.
-    quiz = quiz.replaceAll(/https☻☻☻:\/\//ig,'👨‍🎨'); // Escape url before remove comments.
-    quiz = quiz.replace(/("([^\\"]|\\")*")|('([^\\']|\\')*')/g, (m) => m.replace(/\//g, '\1')).replace(/(\/\*[^*]+\*\/)|(\/\/[^\n]+)/g, '').replace(/\1/g, '/');
-    quiz = quiz.replaceAll(/👨‍🎨/ig,'https☻☻☻://'); // Restore url after remove comments.
 
-    // Remove first and last empty lines
+    // Remove all comments.
+    quiz = quiz.replaceAll(/https☻☻☻:\/\//ig,'@♀♫♂@'); // Escape url before remove comments.
+    quiz = quiz.replace(/("([^\\"]|\\")*")|('([^\\']|\\')*')/g, (m) => m.replace(/\//g, '\1')).replace(/(\/\*[^*]+\*\/)|(\/\/[^\n]+)/g, '').replace(/\1/g, '/');
+    quiz = quiz.replaceAll(/@♀♫♂@/ig,'https@♫♪♫@://'); // Restore url after remove comments.
+
+    // Remove first and last empty lines.
     while (quiz.charAt(0) == '\n') {
         quiz = quiz.slice(1);
     }
@@ -491,31 +485,30 @@ function cleanUp(quiz) {
     }
     return quiz;
 }
-
+// Escape control characters.
 function escapeCmdChar(quiz) {
-    quiz = quiz.replaceAll(/♫♪♫=/ig,'🧝');
-    quiz = quiz.replaceAll(/♫♪♫~/ig,'🤦‍');
-    quiz = quiz.replaceAll(/♫♪♫#/ig,'🧛');
-    quiz = quiz.replaceAll(/♫♪♫n/ig,'🧟‍‍‍');
-    quiz = quiz.replaceAll(/♫♪♫%/ig,'‍‍🦴');
+    quiz = quiz.replaceAll(/@♫♪♫@=/ig,'@♂♀♪@');
+    quiz = quiz.replaceAll(/@♫♪♫@~/ig,'@♫☼►@');
+    quiz = quiz.replaceAll(/@♫♪♫@#/ig,'@◄↕‼@');
+    quiz = quiz.replaceAll(/@♫♪♫@n/ig,'@¶§▬@');
+    quiz = quiz.replaceAll(/@♫♪♫@%/ig,'@↨↑↓@');
+    quiz = quiz.replaceAll(/@♫♪♫@{/ig,'@↑↨↓@');
+    quiz = quiz.replaceAll(/@♫♪♫@}/ig,'@↓↨↑@');
     return quiz;
 }
-
+// Restore control characters. 
 function unescapeCmdChar(quiz) {
-    quiz = quiz.replaceAll(/🧝/ig,'=');
-    quiz = quiz.replaceAll(/🤦/ig,'~‍');
-    quiz = quiz.replaceAll(/🧛/ig,'#');
-    quiz = quiz.replaceAll(/🧟/ig,'<br>‍‍‍'); // Verify it !.
-    quiz = quiz.replaceAll(/♫/ig,'‍‍‍');
-    quiz = quiz.replaceAll(/‍‍🦴/ig,'%');
-    let base64 = quiz.match(new RegExp('<img src="data' + '(.*?)' + 'image'));
-    if (base64 !== null) {
-      quiz = quiz.replace(base64[0], '<img src="data:image');
-    }
+    quiz = quiz.replaceAll(/@♂♀♪@/ig,'=');
+    quiz = quiz.replaceAll(/@♫☼►@/ig,'~‍');
+    quiz = quiz.replaceAll(/@◄↕‼@/ig,'#');
+    quiz = quiz.replaceAll(/@↨↑↓@/ig,'%');
+    quiz = quiz.replaceAll(/@↑↨↓@/ig,'{');
+    quiz = quiz.replaceAll(/@↓↨↑@/ig,'}');
+    quiz = quiz.replaceAll(/@¶§▬@/ig,'<br>‍‍‍');
+    quiz = quiz.replaceAll(/@♫♪♫@/ig,'‍‍‍\\');
     return quiz;
 }
-
-// Global feedback.
+// Extract global feedback.
 function globalFeedback(gfb) {
     if (gfb.length > 1) {
         let temp = gfb[1].split('}');
@@ -523,7 +516,7 @@ function globalFeedback(gfb) {
     }
     return "";
 }
-// Feedback.
+// Extract feedback.
 function getFeedback(split) {
     if (split.length > 1) {
         return split[1].trim();
@@ -535,15 +528,120 @@ function getValue(percent) {
     if (percent === null) {
         return 1;
     }
-    return (1/(100/percent[1]));
+    return (1 / (100 / percent[1]));
 }
 // Display feedback.
 function dspFeedback(id, success, text, gfb) {
-    $('#feedback_'+id).css('background','#0000');
-    $('#feedback_'+id).css('color','#ff0000');
+    $('#feedback_'+id).css('background', '#0000');
+    $('#feedback_'+id).css('color', '#ff0000');
     if (success) {
-        $('#feedback_'+id).css('color','#49A049');
+        $('#feedback_'+id).css('color', '#49A049');
     }
     $('#feedback_'+id).html(text);
-    $('#feedback_'+id).html($('#feedback_'+id).html()+"<br><span class='guestquiz_gfb'>"+gfb+"</span>");
+    $('#feedback_'+id).html($('#feedback_'+id).html()+"<br><span class='guestquiz-gfb'>" + gfb + "</span>");
+}
+
+//---------------------------
+// Javascript for the helper
+//---------------------------
+var gtype = 'bool';
+//
+function displayForm(type) {
+    gtype = type;
+    $(".guestquiz-middle").css('display', 'none');
+    $("input").val('');
+    $("input").prop('checked', false);
+    $('#guestquiz-gift').html('');
+    switch (type) {
+        case 'bool':
+            $("#guestquiz-boolean").css('display', '');
+            break;
+        case 'multichoice':
+            $("#guestquiz-multichoice").css('display', '');
+            break;
+        case 'numeric':
+            $("#guestquiz-numeric").css('display', '');
+            break;
+        case 'short':
+            $("#guestquiz-short").css('display', '');
+            break;
+    }
+}
+//
+function generateGIFT(type)  {
+    var question = $('#guestquiz-question').val();
+    var gfb = $('#guestquiz-gfb').val();
+    var code = $('#guestquiz-code').val();
+    var answer = "";
+    var txt = "";
+    
+    if (code != '') {
+        code = '::' + code + ':: ';
+    }
+    if (gfb != '')  {
+        gfb = '<br>####' + gfb;
+    }
+
+    switch (type) {
+        case 'bool':
+            answer = $('input[name="guestquiz-rb-bool"]:checked').val();
+            if (answer == 'True') {
+                answer = ' {T}';
+            } else {
+                answer = ' {F}';
+            }
+            txt = (code + question + answer + gfb).replace(/(?!<br>)<([^>]+)>/g, '&lt;$1&gt;');
+            $('#guestquiz-gift').html(txt);
+            break;
+        case 'multichoice':
+            for (let i = 0; i < 6; i++) {
+                if ($('#guestquiz-multi-answer'+i).val() != "") {
+                    if ($('#guestquiz-multi-check' + i).is(":checked")) {
+                        answer += "<br>=";
+                    } else {
+                        answer += "<br>~";
+                    }
+                    if ($('#guestquiz-multi-num'+i).val() != "") {
+                      answer += "%" + $('#guestquiz-multi-num' + i).val() + "% ";
+                    }
+                    answer += $('#guestquiz-multi-answer' + i).val();
+                    
+                    if ($('#guestquiz-multi-feedback' + i).val() != "") {
+                      answer += " #" + $('#guestquiz-multi-feedback' + i).val();
+                    }
+                }
+            }
+            txt = (code + question + "<br>{" + answer + gfb + "<br>}").replace(/(?!<br>)<([^>]+)>/g, '&lt;$1&gt;');
+            $('#guestquiz-gift').html(txt);
+            break;
+        case 'numeric':
+            for (let i = 0; i < 3; i++) {
+                if ($('#guestquiz-numeric-value'+i).val() != "") {
+                    let value = $('#guestquiz-numeric-value' + i).val();
+                    answer += '<br>=';
+                    if ($('#guestquiz-numeric-pourcent' + i).val() != "") {
+                        answer += "%" + $('#guestquiz-numeric-pourcent' + i).val() + "% ";
+                    }
+                    if ($('#guestquiz-numeric-tolerance' + i).val() != "") {
+                        answer += value + ':' + $('#guestquiz-numeric-tolerance' + i).val();
+                    } else {
+                        answer += value + ':0';
+                    }
+                    if ($('#guestquiz-numeric-feedback' + i).val() != "") {
+                        answer += " #"+$('#guestquiz-numeric-feedback' + i).val();
+                    }
+                }
+            }
+            $('#guestquiz-gift').html(code + question + "<br>{#" + answer + gfb + "<br>}");
+            break;
+        case 'short':
+            let after = $('#guestquiz-short-after').val();
+            for (let i = 0; i < 4; i++) {
+                if ($('#guestquiz-short-answer' + i).val() != "") {
+                  answer += "=" + $('#guestquiz-short-answer' + i).val();
+                }
+            }
+            $('#guestquiz-gift').html(code + question + " {" + answer + gfb.replace('<br>', ' ') + "} " + after);
+            break;
+    }
 }

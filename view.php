@@ -65,15 +65,15 @@ foreach ($atxt as $idx => $val) {
 
 echo $OUTPUT->header();
 // Display sGIFT in HTML.
-echo("<div id='guestquiz_message'></div>");
-echo("<div id='guestquiz_score'></div>");
-echo("<div id='guestquiz_gift'></div>");
+echo("<div id='guestquiz-message'></div>");
+echo("<div id='guestquiz-score'></div>");
+echo("<div id='guestquiz-gift'></div>");
 echo("<script>");
 echo("    var gQuiz = '';");
 echo("    var allString = [];");
 echo("    ".$lngjs);
 echo("    $(document).ready(function() {");
-echo("        gQuiz = `".str_replace("\\", "♫♪♫", $guestquiz->gift)."`;");
+echo("        gQuiz = `".str_replace("\\", "@♫♪♫@", $guestquiz->gift)."`;");
 echo("        var questions = display(gQuiz);");
 echo("    });");
 echo("</script>");
