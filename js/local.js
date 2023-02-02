@@ -470,7 +470,7 @@ function cleanUp(quiz) {
     quiz = quiz.replaceAll(/\[markdown\]/ig,'').trim();
 
     // Remove all comments.
-    quiz = quiz.replaceAll(/https☻☻☻:\/\//ig,'@♀♫♂@'); // Escape url before remove comments.
+    quiz = quiz.replaceAll(/https@♫♪♫@:\/\//ig,'@♀♫♂@'); // Escape url before remove comments.
     quiz = quiz.replace(/("([^\\"]|\\")*")|('([^\\']|\\')*')/g, (m) => m.replace(/\//g, '\1')).replace(/(\/\*[^*]+\*\/)|(\/\/[^\n]+)/g, '').replace(/\1/g, '/');
     quiz = quiz.replaceAll(/@♀♫♂@/ig,'https@♫♪♫@://'); // Restore url after remove comments.
 
