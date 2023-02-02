@@ -70,5 +70,4 @@ class course_module_viewed extends \core\event\course_module_viewed {
         return array($this->courseid, 'guestquiz', 'view', 'view.php?a=' . $this->objectid,
             $this->objectid, $this->contextinstanceid);
     }
-
 }

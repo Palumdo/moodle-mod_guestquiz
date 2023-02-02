@@ -54,9 +54,9 @@ $PAGE->set_title(format_string($guestquiz->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($modulecontext);
 
-$txt = get_strings(array('guestquizwrong', 'guestquizright', 'guestquiznotsupported', 'guestquizwaswrong', 'guestquizwasright', 
-                         'guestquizbadformat', 'guestquiztrue', 'guestquizfalse', 'guestquizvalidate', 'guestquizgift', 'guestquizquestion')
-                         , 'mod_guestquiz');
+$txt = get_strings(array('guestquizwrong', 'guestquizright', 'guestquiznotsupported', 'guestquizwaswrong', 'guestquizwasright',
+                         'guestquizbadformat', 'guestquiztrue', 'guestquizfalse', 'guestquizvalidate', 'guestquizgift'
+                         , 'guestquizquestion'), 'mod_guestquiz');
 $lngjs = '';
 $atxt = get_object_vars ( $txt );
 foreach ($atxt as $idx => $val) {

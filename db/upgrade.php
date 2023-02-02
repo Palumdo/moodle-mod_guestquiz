@@ -26,7 +26,7 @@
 /**
  * Manage the upgrade of the DB.
  *
- * @param int $oldversion a timestamp with the prrevious version date
+ * @param int $oldversion a timestamp with the previous version date
  * @return true
  */
 function xmldb_guestquiz_upgrade($oldversion = 0) {

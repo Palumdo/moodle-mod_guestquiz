@@ -26,7 +26,7 @@
 require(__DIR__.'/../../config.php');
 require_once(__DIR__.'/lib.php');
 
-opcache_invalidate(__FILE__, true); // DEV ONLY
+opcache_invalidate(__FILE__, true);
 
 global $USER;
 
@@ -50,7 +50,7 @@ require_login($course, true, $cm);
 
 if (!has_capability('mod/guestquiz:create', context_module::instance($cm->id))) {
     throw new moodle_exception('guestquizaccessright', 'guestquiz');
-} 
+}
 
 $PAGE->set_context(context_module::instance($cm->id));
 $PAGE->set_url('/mod/guestquiz/helper.php', array());

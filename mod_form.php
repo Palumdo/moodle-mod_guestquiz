@@ -66,8 +66,8 @@ class mod_guestquiz_mod_form extends moodleform_mod {
         } else {
             $this->add_intro_editor();
         }
-        $helperStr = str_replace('{id}', $PAGE->cm->id, get_string('guestquizhelper', 'mod_guestquiz'));
-        $mform->addElement('html', "<div style='margin-left:25%'>".$helperStr."</div>");
+        $helperstr = str_replace('{id}', $PAGE->cm->id, get_string('guestquizhelper', 'mod_guestquiz'));
+        $mform->addElement('html', "<div style='margin-left:25%'>".$helperstr."</div>");
         $mform->addElement('textarea', 'gift', get_string('guestquizgift', 'mod_guestquiz'), 'wrap="virtual" rows="25" cols="80"');
         $mform->addHelpButton('gift', 'guestquizgift', 'mod_guestquiz');
         // Add standard elements and buttons.

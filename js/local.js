@@ -66,9 +66,9 @@ function getQuestions(quiz) {
             questions[i].title = title[1];
             if (str.slice(-1) == '}' ) {
                 questions[i].question = str.slice(0, str.indexOf("{"));
-                questions[i].question = questions[i].question.replace('::'+questions[i].title+'::', '').trim();
+                questions[i].question = questions[i].question.replace('::' + questions[i].title + '::', '').trim();
             } else {
-                questions[i].question = questions[i].str.replace('::'+questions[i].title+'::', '').trim();
+                questions[i].question = questions[i].str.replace('::' + questions[i].title + '::', '').trim();
             }
         } else {
             if (str.slice(-1) == '}' ) {
@@ -221,7 +221,6 @@ function getQuestions(quiz) {
           questions[i].answers[j].feedback = unescapeCmdChar(questions[i].answers[j].feedback);
         }
     }
-    console.log(questions);
     return questions;
 }
 
@@ -307,7 +306,6 @@ function getQuestions(quiz) {
       quizOut += '<div class="guestquiz-validate"><button class="btn btn-primary" type="button" onclick="validate()">'+allString['guestquizvalidate']+'</button></div>';
       $(quizOut).appendTo($('#guestquiz-gift'));
     } catch(error) {
-      console.log(error);
       $("#guestquiz-message").html('<span class="guestquiz-error">'+allString['guestquizbadformat']+'</span>');
     }
   }
@@ -545,7 +543,7 @@ function dspFeedback(id, success, text, gfb) {
 // Javascript for the helper
 //---------------------------
 var gtype = 'bool';
-//
+// Manage the display of question type form.
 function displayForm(type) {
     gtype = type;
     $(".guestquiz-middle").css('display', 'none');
@@ -567,7 +565,7 @@ function displayForm(type) {
             break;
     }
 }
-//
+// Generate the GIFT string from the data in input in the form.
 function generateGIFT(type)  {
     var question = $('#guestquiz-question').val();
     var gfb = $('#guestquiz-gfb').val();

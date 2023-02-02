@@ -38,7 +38,7 @@ $capabilities = array(
         'clonepermissionsfrom' => 'moodle/course:manageactivities'
     ),
 
-    // Create survey.
+    // Create guestquiz.
     'mod/guestquiz:create' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_MODULE,
@@ -49,7 +49,7 @@ $capabilities = array(
         )
     ),
 
-    // Respond to survey.
+    // Respond to guestquiz.
     'mod/guestquiz:respond' => array(
         'riskbitmask' => RISK_SPAM,
         'captype' => 'write',
