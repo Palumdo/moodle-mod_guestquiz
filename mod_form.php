@@ -82,12 +82,12 @@ class mod_guestquiz_mod_form extends moodleform_mod {
      */
     public function data_preprocessing(&$defaultvalues) {
         global $DB;
-
-        $guestquiz = $DB->get_record('guestquiz', array('id' => $this->current->id), '*', IGNORE_MISSING);
-        if ($guestquiz != false) {
-            $defaultvalues['guestquiz_gift'] = $guestquiz->gift;
-        } else {
-            $defaultvalues['guestquiz_gift'] = "empty";
+        $defaultvalues['guestquiz_gift'] = "empty";
+        if ($this->current->id != '') {
+            $guestquiz = $DB->get_record('guestquiz', array('id' => $this->current->id), '*', IGNORE_MISSING);
+            if ($guestquiz != false) {
+                $defaultvalues['guestquiz_gift'] = $guestquiz->gift;
+            }
         }
     }
 }

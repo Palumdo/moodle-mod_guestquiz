@@ -30,7 +30,6 @@ global $USER;
 
 $PAGE->requires->jquery();
 $PAGE->requires->jquery_plugin('ui');
-$PAGE->requires->css('/mod/guestquiz/css/style.css');
 $PAGE->requires->js('/mod/guestquiz/js/local.js');
 $theme = $CFG->theme;
 

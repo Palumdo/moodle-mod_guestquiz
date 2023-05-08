@@ -69,3 +69,4 @@ $string['guestquizglobalfeedback_help']       = 'The global feedback will be alw
 $string['guestquizgenerate']                  = 'Generate';
 $string['guestquizcopycode']                  = 'Copy the following code';
 $string['guestquizaccessright']               = 'You must be a teacher to go there';
+$string['privacy:metadata']                   = 'The plugin guestquiz does not store any data.';
