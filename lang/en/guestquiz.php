@@ -49,6 +49,7 @@ $string['guestquizgift']                      = 'sGIFT';
 $string['guestquizgift_help']                 = 'This field support a subset of GIFT question format. For more info please read the documentation.';
 $string['guestquizquestion']                  = 'Question';
 $string['guestquizhelper']                    = "The GIFT format was a subset of GIFT and do not support all the gift possibility of Moodle. It's a limited subset. Supported questions type are numeric, boolean, short answer and multichoice. Please read the documentation <a href='https://docs.moodle.org/400/en/GIFT_format'>Here</a> and <a href='https://github.com/Palumdo/moodle-mod_guestquiz/wiki'>Here</a>. You can also use this little gift generator: <a href='/mod/guestquiz/helper.php?id={id}'>Here</a>.";
+$string['guestquizhelper_new']                = "The GIFT format was a subset of GIFT and do not support all the gift possibility of Moodle. It's a limited subset. Supported questions type are numeric, boolean, short answer and multichoice. Please read the documentation <a href='https://docs.moodle.org/400/en/GIFT_format'>Here</a> and <a href='https://github.com/Palumdo/moodle-mod_guestquiz/wiki'>Here</a>. You can also a little gift generator but the link is only available after  the activity creation";
 $string['guestquizhelper_title']              = "Small GIFT editor";
 $string['guestquizboolean']                   = 'Boolean';
 $string['guestquiztruefalse']                 = 'True/False';

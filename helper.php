@@ -55,6 +55,7 @@ if (!has_capability('mod/guestquiz:create', context_module::instance($cm->id))) 
 $PAGE->set_context(context_module::instance($cm->id));
 $PAGE->set_url('/mod/guestquiz/helper.php', array());
 $PAGE->set_title(get_string('guestquizhelper_title', 'mod_guestquiz'));
+$PAGE->set_heading(get_string('guestquizhelper_title', 'mod_guestquiz'));
 $PAGE->set_pagelayout('course');
 echo $OUTPUT->header();
 ?>
